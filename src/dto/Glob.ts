@@ -1,0 +1,40 @@
+import { 
+    AVATAR_BEAR, 
+    AVATAR_WOMAN, 
+    AVATAR_WOMAN2,
+    AVATAR_CAT,
+    AVATAR_CHICKEN,
+    AVATAR_DOG,
+    AVATAR_DOG2,
+    AVATAR_GORILLA,
+    AVATAR_JAGUAR,
+    AVATAR_MAN,
+    AVATAR_MAN2,
+    AVATAR_MEERKAT,
+    AVATAR_RABBIT,
+    AVATAR_SEA_LION,
+    AVATAR_USER,
+ } from "../lib/img";
+
+export enum DataStatus {
+    ACTIVE = "ACTIVE",
+    INACTIVE = "INACTIVE",
+}
+
+export const ListAvatars = [
+    AVATAR_BEAR,
+    AVATAR_CAT,
+    AVATAR_CHICKEN,
+    AVATAR_DOG,
+    AVATAR_DOG2,
+    AVATAR_GORILLA,
+    AVATAR_JAGUAR,
+    AVATAR_MAN,
+    AVATAR_MAN2,
+    AVATAR_MEERKAT,
+    AVATAR_RABBIT,
+    AVATAR_SEA_LION,
+    AVATAR_USER,
+    AVATAR_WOMAN,
+    AVATAR_WOMAN2
+]

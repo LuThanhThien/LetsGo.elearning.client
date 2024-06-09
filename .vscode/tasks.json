@@ -1,0 +1,42 @@
+{
+   "version": "1.0.1",
+   "tasks": [
+      {
+         "label": "Dev util process",
+         "type": "process",
+         "windows": {
+            "command": "./dev.bat"
+
+         },
+         "group": "none",
+         "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "clear": false
+         },
+         "runOptions": {
+            "runOn": "folderOpen"
+         }
+      },
+      {
+         "label": "Launch server",
+         "type": "npm",
+         "script": "dev",
+         "group": "none",
+         "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared",
+            "showReuseMessage": true,
+            "clear": false
+         },
+         "runOptions": {
+            "runOn": "folderOpen"
+         }
+      }
+   ]
+}

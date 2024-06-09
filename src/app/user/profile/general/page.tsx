@@ -1,0 +1,424 @@
+"use client"
+import Loading from "@/app/loading";
+import PhoneTextField from "@/components/ui/inputs/PhoneTextField";
+import { useUser } from "@/context/UserContext";
+import { Colors, FontSize, Styles } from "@/lib/styles";
+import { Card, CardContent, Chip, FormControl, FormHelperText, FormLabel, Grid, InputAdornment, Stack, TextField, Typography, TypographyProps, useTheme } from "@mui/material";
+import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
+import { useSession } from "next-auth/react"
+import provinces from '../../../../lib/json/provinces.json';
+import dayjs from "dayjs";
+import { ChangePasswordDto, Gender, UserUpdateDto } from "@/dto/User";
+import { useEffect } from "react";
+import PasswordTextField from "@/components/ui/inputs/PasswordTextField";
+import DefaultButton from "@/components/ui/inputs/DefaultButton";
+import { changePassword, updateUser } from "@/app/api/user/actions";
+
+import { toast } from "sonner";
+import ControlledAutocomplete from "@/components/ui/inputs/ControlledAutocomplete";
+import ControlledDatePicker from "@/components/ui/inputs/ControlledDatePicker";
+import { ControlledSelectEnum } from "@/components/ui/inputs/ControlledSelect";
+
+type InputLabelProps = {
+  label: string,
+} & TypographyProps;
+
+const InputLabel = ({ label: label, paddingLeft, paddingBottom, fontWeight, fontSize, ...props } : InputLabelProps) => {
+  return (
+    <FormLabel>
+      <Typography fontSize={fontSize ? fontSize : FontSize.small + 1} fontWeight={fontWeight ? fontWeight : "bold"} paddingBottom={paddingBottom ? paddingBottom : 0.5} paddingLeft={paddingLeft ? paddingLeft : 0.4} {...props}>{label}</Typography>
+    </FormLabel>
+  )
+}
+
+
+type AccountTypeProps = {
+  label: string,
+  color: string,
+}
+
+const AccountType = (numberModules: number) : AccountTypeProps=> {
+  if (200 <= numberModules) return { label: "Huyền thoại", color: Colors.tetiary }
+  if (100 <= numberModules) return { label: "Chiến binh", color: useTheme().palette.warning.main }
+  if (50 <= numberModules) return { label: "Cao nhân", color: useTheme().palette.success.main }
+  if (20 <= numberModules) return { label: "Học giả", color: useTheme().palette.info.main }
+  return { label: "Sơ cấp", color: Colors.shadowDarken}
+}
+
+export default function ProfileGeneral() {
+  
+  const {data: session, status, update} = useSession();
+  const { 
+    contextStatus,
+    profileForm, resetProfileForm,
+    changePasswordForm, clickChangePassword, 
+    handleCloseChangePassword, resetChangePasswordForm,
+    totalModules,
+  } = useUser();
+
+  const onInvalid = (errors: any) => {
+    console.error(errors);
+  }
+
+  const handleUpdateProfile = async (data: UserUpdateDto) => {
+    console.log("Updating user profile")
+    console.log(data);
+    const response = await updateUser(data);
+    if (response.error) {
+      console.log("Error updating user profile");
+      console.error(response.error);
+      toast.error("Có lỗi xảy ra khi cập nhật thông tin của bạn!");
+      return;
+    }
+    console.log("Successfully updated user profile");
+    console.log(response.data);
+    resetProfileForm(data);
+    update();
+    toast.success("Cập nhật thông tin thành công!");  
+  }
+
+  const handleChangePassword = async (data: ChangePasswordDto) => {
+    console.log("Changing password")
+    console.log(data)
+    const response = await changePassword(data);
+    if (response.error) {
+      console.log("Error changing password");
+      console.error(response);
+      changePasswordForm.setError("root", {message: response.details[0]});
+      return;
+    }
+    console.log("Successfully changed password");
+    console.log(response.data);
+    resetChangePasswordForm();
+    toast.success("Đổi mật khẩu thành công!");
+  }
+
+  
+  useEffect(() => {
+    if (clickChangePassword) {
+      const passwordPosition = document.getElementById('profile-password-card')?.offsetTop;  
+      // Scroll to the target position with smooth behavior
+      window.scrollTo({
+        top: passwordPosition as number - 200,
+        behavior: 'smooth'
+      });
+      handleCloseChangePassword();
+    }
+  }, [clickChangePassword])
+
+  if (contextStatus === "loading") return <Loading/>;
+    
+  return (
+    <Grid container padding={4} paddingLeft={2} rowSpacing={3}
+      justifyContent={"flex-start"} alignItems={"flex-start"}
+    >
+      <Grid item xs={12}>
+        <Grid container rowSpacing={2} direction={"row"} justifyContent={"flex-start"} alignItems={"flex-start"}>
+          <Grid item xs={12}>
+            <Typography fontSize={FontSize.extra} fontWeight={"bold"} paddingLeft={1}>Thông tin cá nhân</Typography>
+          </Grid>
+          <Grid item xs={12}>  
+            <Card 
+              id="profile-general-card"
+              sx={{
+                ...Styles.Card}}>
+              <CardContent>
+              <Stack direction="column" padding={3} rowGap={5} alignItems="flex-start">  
+                <Grid container direction={"row"} rowSpacing={2} columnSpacing={3} >
+                  <Grid item xs={6}>
+                    <InputLabel label="Họ và tên"/>
+                    <TextField
+                      {...profileForm.register("fullName")}
+                      error={!!profileForm.formState.errors.fullName}
+                      helperText={profileForm.formState.errors.fullName?.message}
+                      defaultValue={profileForm.getValues().fullName || ""}
+                      fullWidth
+                      placeholder="Họ và tên của bạn"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <CircleUserRound size={23} />
+                          </InputAdornment>
+                          )
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <InputLabel label="Địa chỉ emailTemplate"/>
+                    <TextField
+                      {...profileForm.register("username")}
+                      error={!!profileForm.formState.errors.username}
+                      helperText={profileForm.formState.errors.username?.message}
+                      fullWidth
+                      disabled
+                      sx={{
+                        ...Styles.InputDisabled,
+                      }}
+                      placeholder="Email của bạn"
+                      variant="outlined"
+                      InputProps={{
+                        
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Mail size={23} />
+                          </InputAdornment>
+                          )
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <FormControl fullWidth>
+                      <InputLabel label="Địa chỉ"/>
+                      <ControlledAutocomplete
+                        control={profileForm.control}
+                        defaultValue={profileForm.getValues().location || null}
+                        name="location"
+                        options={provinces.map((province) => province.Name)}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Tỉnh/Thành phố"
+                            fullWidth
+                            error={!!profileForm.formState.errors.location}
+                            helperText={profileForm.formState.errors.location?.message}
+                            inputProps={{
+                              ...params.inputProps,
+                              autoComplete: 'new-password', // disable autocomplete and autofill
+                            }}
+                            variant="outlined"
+                            InputProps={{
+                              ...params.InputProps,
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <MapPin />
+                                </InputAdornment>
+                                )
+                            }}
+                          />
+                        )}
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <FormControl fullWidth>
+                      <InputLabel label="Ngày sinh"/> 
+                      <ControlledDatePicker
+                        defaultValue={dayjs(profileForm.getValues().birthDate) || null}
+                        control={profileForm.control}
+                        name="birthDate"
+                        slotProps={{
+                            textField: {
+                              InputProps: {
+                                error: !!profileForm.formState.errors.birthDate,
+                                placeholder: "Ngày sinh",
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Cake />
+                                  </InputAdornment>
+                                  )
+                              }
+                            }
+                          }}
+                      />
+                      <FormHelperText error>{profileForm.formState.errors.birthDate?.message}</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <FormControl fullWidth>
+                      <InputLabel label="Giới tính"/> 
+                      <ControlledSelectEnum 
+                        control={profileForm.control}
+                        name="gender"
+                        defaultValue={profileForm.getValues().gender || ""}
+                        enumObj={Gender}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <Shapes size={23} />
+                          </InputAdornment>
+                        }
+                      />
+                      <FormHelperText error>{profileForm.formState.errors.gender?.message}</FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <InputLabel label="Số điện thoại"/>
+                    <PhoneTextField
+                      {...profileForm.register("phone")}
+                      error={!!profileForm.formState.errors.phone}
+                      helperText={profileForm.formState.errors.phone?.message}
+                      fullWidth
+                      placeholder="Số điện thoại"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Phone size={23} />
+                          </InputAdornment>
+                          )
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <InputLabel label="Trường học"/>
+                    <TextField
+                      {...profileForm.register("school")}
+                      error={!!profileForm.formState.errors.school}
+                      helperText={profileForm.formState.errors.school?.message}
+                      fullWidth
+                      placeholder="Bạn đang học trường nào?"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <School />
+                          </InputAdornment>
+                          )
+                      }}
+                      InputLabelProps={{ shrink: true }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} direction={"row"} justifyContent={"flex-end"}>
+                    <Grid item xs={2}>
+                      <DefaultButton 
+                        processing={profileForm.formState.isSubmitting}
+                        disabled={!profileForm.formState.isDirty} onClick={profileForm.handleSubmit(handleUpdateProfile, onInvalid)}>Lưu thay đổi</DefaultButton>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <DefaultButton disabled={!profileForm.formState.isDirty || profileForm.formState.isSubmitting} onClick={() => resetProfileForm()} color="error">Hoàn tác</DefaultButton>
+                    </Grid>
+                </Grid>
+              </Stack>
+            </CardContent>
+          </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={5}>
+        <Grid container spacing={2} direction={"column"} justifyContent={"flex-end"} paddingRight={2}>
+          <Grid item xs={6}>
+            <Typography fontSize={FontSize.extra} fontWeight={"bold"} paddingLeft={1}>Đổi mật khẩu</Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Card 
+              id="profile-password-card"
+              sx={{
+                ...Styles.Card}}>
+              <CardContent>
+              <Stack direction="column" padding={3} rowGap={4} alignItems="flex-start">  
+                <Grid container direction={"column"} rowSpacing={2} columnSpacing={3} >
+                  <Grid item xs={12}>
+                    <InputLabel label="Mật khẩu hiện tại"/>
+                    <PasswordTextField
+                      fullWidth
+                      {...changePasswordForm.register("currentPassword")}
+                      error={!!changePasswordForm.formState.errors.currentPassword} 
+                      helperText={changePasswordForm.formState.errors.currentPassword?.message}
+                      placeholder="Mật khẩu hiện tại"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <RectangleEllipsis size={23} />
+                          </InputAdornment>
+                          )
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputLabel label="Mật khẩu mới"/>
+                    <PasswordTextField
+                      fullWidth
+                      {...changePasswordForm.register("newPassword")}
+                      error={!!changePasswordForm.formState.errors.newPassword} 
+                      helperText={changePasswordForm.formState.errors.newPassword?.message}
+                      placeholder="Mật khẩu mới"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <Key size={23} />
+                          </InputAdornment>
+                          )
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <InputLabel label="Mật khẩu xác nhận"/>
+                    <PasswordTextField
+                      fullWidth 
+                      {...changePasswordForm.register("confirmPassword")}
+                      error={!!changePasswordForm.formState.errors.confirmPassword} 
+                      helperText={changePasswordForm.formState.errors.confirmPassword?.message}
+                      placeholder="Mật khẩu xác nhận"
+                      variant="outlined"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <PackageCheck size={23}/>
+                          </InputAdornment>
+                          ),
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                  <FormHelperText error>{changePasswordForm.formState.errors.root?.message}</FormHelperText>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={2} direction={"row"} justifyContent={"center"}>
+                    <Grid item xs={6}>
+                      <DefaultButton 
+                        processing={changePasswordForm.formState.isSubmitting}
+                        color="info" onClick={changePasswordForm.handleSubmit(handleChangePassword, onInvalid)}>
+                        Đổi mật khẩu
+                      </DefaultButton>
+                    </Grid>
+                </Grid>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+        
+      </Grid>
+      <Grid item xs={7}>
+        <Grid container spacing={2} direction={"column"} justifyContent={"flex-end"} paddingLeft={2}>
+          <Grid item xs={12}>
+            <Typography fontSize={FontSize.extra} fontWeight={"bold"} paddingLeft={1}>Thông tin tài khoản</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Card sx={{
+              ...Styles.Card,
+              }}>
+              <CardContent>
+                <Stack direction="column" padding={3} rowGap={4} alignItems="flex-start">  
+                    <Grid container rowSpacing={2} columnSpacing={3} >
+                      <Grid item xs={6}>
+                        <InputLabel label="Tên tài khoản"/>
+                        <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{session?.user?.username}</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <InputLabel label="Loại tài khoản"/>
+                          <Chip label={AccountType(totalModules).label} color="primary" style={{backgroundColor: AccountType(totalModules).color, fontWeight: "bold"}}/>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <InputLabel label="Ngày tham gia"/>
+                        <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{dayjs(session?.user?.createdDatetime).format('DD/MM/YYYY')}</Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <InputLabel label="Số bài học tham gia"/>
+                        <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{totalModules}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                </Stack>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+   
+  )
+}
