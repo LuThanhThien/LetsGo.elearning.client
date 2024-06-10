@@ -36,8 +36,8 @@ export default function ProfileLayout(props : Props) {
     const userMenu = [
         createMenu("Thông tin cá nhân", <SquareUser size={23}/>, "/user/profile/general"),
         createMenu("Lịch sử thanh toán", <History size={23}/>, "/user/profile/billing"),
+        createMenu("Khoá học đã lưu", <Heart size={23}/>, "/user/profile/saved-courses"),
         createMenu("Cài đặt", <Settings size={23}/>, "/user/profile/settings"),
-        createMenu("Khoá học đã lưu", <Heart size={23}/>, "/user/profile/saved-courses")
     ]   
 
     // Signout dialog

@@ -200,28 +200,26 @@ export default function HeaderUser() {
                   </Grid>
                   :
                   !session ? 
-                  <Grid container direction={"row-reverse"} paddingRight={2} paddingLeft={2} spacing={2} alignContent={"center"} alignItems={"flex-end"}>
-                    <Grid item xs={3}>
-                      <DefaultButton 
-                        fullWidth
-                        href="/login" 
-                        startIcon={<Zap size={20}/>} 
-                      >
-                        Đăng nhập
-                      </DefaultButton> 
-                    </Grid>
-                    <Grid item xs={3}>
-                      <DefaultButton 
-                        fullWidth
-                        href="/register" 
-                        startIcon={<LogIn size={20}/>} 
-                        variant="outlined"
-                        color="inherit"
-                      >
-                        Đăng ký
-                      </DefaultButton> 
-                    </Grid>
-                  </Grid>
+                  <Stack direction={"row-reverse"} spacing={2} alignContent={"center"} alignItems={"flex-end"}>
+                    <DefaultButton 
+                      fullWidth
+                      href="/login" 
+                      maxWidth="170px"
+                      startIcon={<Zap size={20}/>} 
+                    >
+                      Đăng nhập
+                    </DefaultButton> 
+                    <DefaultButton 
+                      fullWidth
+                      href="/register" 
+                      maxWidth="170px"
+                      startIcon={<LogIn size={20}/>} 
+                      variant="outlined"
+                      color="inherit"
+                    >
+                      Đăng ký
+                    </DefaultButton> 
+                  </Stack>
                   :
                     <Grid container direction={"row"} paddingRight={2} paddingLeft={2} spacing={3} justifyContent={"flex-end"} alignItems={"center"}>
                       <Grid item>
