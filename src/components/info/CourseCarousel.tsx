@@ -1,10 +1,11 @@
 "use client"
 
 import React from "react";
-import Course, { CourseTagColor } from "@/dto/Course";
 import Carousel from "react-material-ui-carousel";
 import { Card, CardActionArea, CardContent, CardHeader, CardMedia, Chip, Grid, Stack, Typography } from "@mui/material";
-import { FontSize } from "@/lib/styles";
+import { FontSize } from "../../core/lib/style";
+import { Course, CourseTagStyles } from "../../core/index.models";
+
 
 export type CourseCarouselProps = {
    courses: Course[];
@@ -15,7 +16,7 @@ export type CourseCarouselProps = {
 
 export const CourseCard = ({ course, carouselHeight } : { course: Course, carouselHeight: number }) => {
     const card = { 
-        maxWidth: 320, 
+        maxWidth: 390, 
         borderRadius: 2, 
         boxShadow: 2,
         transition: "transform 0.2s ease-in-out",
@@ -52,9 +53,15 @@ export const CourseCard = ({ course, carouselHeight } : { course: Course, carous
             >
             <Stack position={"absolute"} sx={{ top: 10 }}>
                 <Chip
-                    label={<Typography variant="caption" sx={{ fontWeight: "bold", paddingRight: 0.5 }}>{course.tag}</Typography>}
+                    label={<Typography 
+                        variant="caption" 
+                        sx={{ 
+                            fontWeight: "bold", 
+                            paddingRight: 0.5, 
+                            fontSize: FontSize.small 
+                        }}>{course.tag}</Typography>}
                     sx={{ 
-                        backgroundColor: CourseTagColor[course.tag], 
+                        backgroundColor: CourseTagStyles[course.tag].color, 
                         color: "white", 
                         fontWeight: "bold",
                         borderRadius: 2,
@@ -98,7 +105,7 @@ export const CourseCard = ({ course, carouselHeight } : { course: Course, carous
 }
 
 
-const CourseCarousel = (({ courses, cardPerSlide = 4, height = 460 } : CourseCarouselProps) => {
+export const CourseCarousel = (({ courses, cardPerSlide = 4, height = 460 } : CourseCarouselProps) => {
     const numCardPerSlide = cardPerSlide > 0 ? cardPerSlide > 4 ? 4 : cardPerSlide : 4;
     const maxLen = courses.length;
 
@@ -131,5 +138,3 @@ const CourseCarousel = (({ courses, cardPerSlide = 4, height = 460 } : CourseCar
    )
 })
 
-
-export default CourseCarousel

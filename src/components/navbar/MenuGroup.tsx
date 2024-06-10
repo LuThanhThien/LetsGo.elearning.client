@@ -4,11 +4,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
 import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
-import { Box, Collapse, Typography } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 import List from "@mui/material/List";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { FontSize } from "@/lib/styles";
+import { FontSize } from "../../core/lib/style";
 
 export interface MenuGroupProps {
     name: string,
@@ -28,7 +28,7 @@ export function createMenu (
 }
 
 
-export default function MenuGroup(props: { item: MenuGroupProps, key: number }) {
+export function MenuGroup(props: { item: MenuGroupProps, key: number }) {
 	const router = useRouter();
 	const path = usePathname();
 	const { item } = props;

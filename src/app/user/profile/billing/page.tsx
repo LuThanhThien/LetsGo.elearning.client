@@ -1,16 +1,18 @@
 "use client"
 import Loading from "@/app/loading";
-import { useUser } from "@/context/UserContext";
-import { Colors, FontSize, Styles } from "@/lib/styles";
+import { useUser } from "../../../../core/context/UserContext";
+import { Colors, FontSize, Styles } from "../../../../core/lib/style";
 import { Autocomplete, Box, Card, CardContent, Checkbox, Chip, FormControl, FormHelperText, FormLabel, Grid, Icon, InputAdornment, MenuItem, Select, Stack, TextField, Typography, TypographyProps, useTheme } from "@mui/material";
-import { Banknote, Cake, CircleUserRound, CreditCard, Key, Mail, MapPin, PackageCheck, Phone, Receipt, ReceiptText, RectangleEllipsis, School, Shapes, UsersRound } from "lucide-react";
+import { Banknote, Cake, Check, CircleUserRound, CreditCard, Key, Mail, MapPin, PackageCheck, Phone, Receipt, ReceiptText, RectangleEllipsis, School, Shapes, SquareCheckBig, UsersRound } from "lucide-react";
 import { useSession } from "next-auth/react"
-import { useEffect } from "react";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
-import DefaultTablePagination from "@/components/ui/display/DefaultTablePagination";
-import { DefaultTableCell, DefaultTableRow } from "@/components/ui/display/DefaultTable";
-import { doFormatCurrency, doFormatDate, doFormatDatetime, doFormatTime, getEnumValue } from "@/lib/utils";
-import { PaymentDto, PaymentMethod, PaymentStatus } from "@/dto/Payment";
+import {
+  DefaultButton,
+  DefaultTablePagination,
+  DefaultTableCell, 
+  DefaultTableRow,
+} from "../../../../core/index.ui";
+import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../core/lib/utils";
+import { PaymentMethod, PaymentStatus } from "../../../../core/index.models";
 
 type InputLabelProps = {
   label: string,
@@ -61,27 +63,46 @@ export default function BillingPage() {
     >
       <Grid item xs={12}>
         <Grid container rowSpacing={2} direction={"row"} justifyContent={"flex-start"} alignItems={"flex-start"}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Lịch sử thanh toán</Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Grid container direction={"row"} spacing={2} justifyContent={"flex-end"}>
-              <Grid item>
-                <DefaultButton {...topButtonProps} variant="outlined" color="warning" startIcon={<ReceiptText/>}>Xuất PDF</DefaultButton>
-              </Grid>
-              <Grid item>
-                <DefaultButton {...topButtonProps} variant="outlined" color="info" startIcon={<CreditCard/>}>Thanh toán</DefaultButton>
-              </Grid>
-            </Grid>
+          <Grid item xs={12}>
+            <Card 
+              id="billing-profile-card"
+              sx={{
+                ...Styles.Card,
+                }}>
+              <CardContent>
+                <Grid container direction={"row"} alignItems={"center"}>
+                  <Grid item xs={6}>
+                    <Grid container direction={"row"} spacing={2} justifyContent={"flex-start"}>
+                      <Grid item>
+                        Content here
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container direction={"row"} spacing={2} justifyContent={"flex-end"} alignItems={"center"}>
+                      <Grid item>
+                        <DefaultButton {...topButtonProps} variant="outlined" color="warning" startIcon={<ReceiptText/>}>Xuất PDF</DefaultButton>
+                      </Grid>
+                      <Grid item>
+                        <DefaultButton {...topButtonProps} variant="outlined" color="info" startIcon={<CreditCard/>}>Thanh toán</DefaultButton>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
           </Grid>
           <Grid item xs={12}>  
-            {/* <Card 
+            <Card 
               id="billing-profile-card"
               sx={{
                 ...Styles.Card,
                 minHeight: "650px",
                 }}>
-              <CardContent> */}
+              <CardContent>
                 <Grid container spacing={2} justifyContent={"center"} alignItems={"flex-start"}>
                   <Grid item xs={12}>
                     <DefaultTablePagination
@@ -95,6 +116,7 @@ export default function BillingPage() {
                               // indeterminate={numSelected > 0 && numSelected < rowCount}
                               // checked={rowCount > 0 && numSelected === rowCount}
                               // onChange={onSelectAllClick}
+                              sx={{ paddingRight: 2}}
                               inputProps={{
                                 'aria-label': 'select all desserts',
                               }}
@@ -115,6 +137,7 @@ export default function BillingPage() {
                               // indeterminate={numSelected > 0 && numSelected < rowCount}
                               // checked={rowCount > 0 && numSelected === rowCount}
                               // onChange={onSelectAllClick}
+                              sx={{ paddingRight: 2}}
                               inputProps={{
                                 'aria-label': 'select all desserts',
                               }}
@@ -135,7 +158,14 @@ export default function BillingPage() {
                             </Typography>
                           </DefaultTableCell>
                           <DefaultTableCell align="left">
-                            <Typography>{getEnumValue(PaymentStatus, row.paymentStatus)}</Typography>
+                            <Chip
+                              label={
+                                  <Typography sx={{ padding: 0.7}}>
+                                    {<Check size={15}/>} 
+                                    {getEnumValue(PaymentStatus, row.paymentStatus)}
+                                  </Typography>
+                              }
+                            />
                           </DefaultTableCell>
                           <DefaultTableCell align="center"></DefaultTableCell>
                         </DefaultTableRow>
@@ -143,8 +173,8 @@ export default function BillingPage() {
                     />
                   </Grid>
                 </Grid>
-            {/* </CardContent>
-          </Card> */}
+            </CardContent>
+          </Card>
           </Grid>
         </Grid>
       </Grid>

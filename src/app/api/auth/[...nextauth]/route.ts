@@ -1,11 +1,10 @@
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import { getUserByUsername } from "@/app/api/user/actions";
+import { ACCESS_TOKEN_KEY, AuthAPI, getUserByUsername } from "../actions";
 import NextAuth from "next-auth";
 import { AuthOptions } from "next-auth";
-import { AuthAPI, RequestMethod } from "@/app/api/const";
-import { createUrl } from "../../axios";
+import { RestApi } from "../../rest";
 
 
 export enum NextAuthProviders {
@@ -23,19 +22,19 @@ const authOptions : AuthOptions = {
         CredentialsProvider({
             name: NextAuthProviders.CREDENTIALS,
             credentials: {
-                emailTemplate: {label: "Email", type: "text", placeholder: "emailTemplate@letsgo.com",},
+                username: {label: "Email", type: "text", placeholder: "username@letsgo.com",},
                 password: {label: "Password", type: "password"},
             },
             //@ts-ignore
             async authorize(credentials) {
-                if (!credentials?.emailTemplate || !credentials?.password) {
+                if (!credentials?.username || !credentials?.password) {
                     throw new Error("Vui lòng nhập tên người dùng và mật khẩu");
                 }
-                const res = await fetch(createUrl(AuthAPI.LOGIN), {
-                    method: RequestMethod.POST,
+                const res = await fetch(RestApi.createUrl(AuthAPI.LOGIN.url), {
+                    method: AuthAPI.LOGIN.method,
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
-                        username: credentials.emailTemplate,
+                        username: credentials.username,
                         password: credentials.password
                     })
                 });
@@ -43,6 +42,7 @@ const authOptions : AuthOptions = {
                     throw new Error("Tên người dùng hoặc mật khẩu không chính xác");
                 }
                 const user = await res.json();
+                console.log("Login response: ", user)
                 if (user) { return user; }
                 return null;
             },
@@ -51,7 +51,7 @@ const authOptions : AuthOptions = {
             name: NextAuthProviders.REGISTER,
             credentials: {
                 fullName: {label: "Full Name", type: "text", placeholder: "Nguyễn Văn A"},
-                emailTemplate: {label: "Email", type: "text", placeholder: "emailTemplate@letsgo.vn",},
+                username: {label: "Email", type: "text", placeholder: "username@letsgo.vn",},
                 password: {label: "Password", type: "password"},
                 confirmPassword: {label: "Confirm Password", type: "password"},
                 avatar: {label: "Avatar", type: "text"},
@@ -61,12 +61,12 @@ const authOptions : AuthOptions = {
                 if (!credentials) {
                     throw new Error("Vui lòng nhập tên người dùng và mật khẩu");
                 }
-                const res = await fetch(createUrl(AuthAPI.REGISTER), {
-                    method: RequestMethod.POST,
+                const res = await fetch(RestApi.createUrl(AuthAPI.REGISTER.url), {
+                    method: AuthAPI.REGISTER.method,
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         fullName: credentials.fullName,
-                        username: credentials.emailTemplate,
+                        username: credentials.username,
                         password: credentials.password,
                         confirmPassword: credentials.confirmPassword,
                         avatar: credentials.avatar,
@@ -89,13 +89,14 @@ const authOptions : AuthOptions = {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async signIn({user, account, profile, emailTemplate, credentials}) {
+        async signIn({user, account, profile, credentials}) {
             if (account?.provider === NextAuthProviders.CREDENTIALS) {
-                const existingUser = await getUserByUsername(credentials?.emailTemplate as string);
+                console.log("[NextAuth] signIn - Find by credentials: " + credentials)
+                const existingUser = await getUserByUsername(credentials?.username as string);
                 return Boolean(existingUser.data);
             }
             if (account?.provider === NextAuthProviders.GOOGLE) {
-                const existingUser = await getUserByUsername(profile?.emailTemplate as string);
+                const existingUser = await getUserByUsername(profile?.email as string);
                 return Boolean(existingUser.data);
             }
             return false;
@@ -107,10 +108,8 @@ const authOptions : AuthOptions = {
                 const result = await getUserByUsername(user.username as string);
                 console.log("[NextAuth] jwt - Existing user: " + JSON.stringify(result.data))
                 token = {
-                    id: result.data.id,
-                    username: result.data.username,
-                    fullName: result.data.fullName,
-                    role: result.data.role,
+                    ...token,
+                    ...result.data,
                     accessToken: token.accessToken,
                     refreshToken: token.refreshToken,
                 }
@@ -125,26 +124,16 @@ const authOptions : AuthOptions = {
                 const result = await getUserByUsername(token.username as string);
                 console.log("[NextAuth] session - Existing user: " + JSON.stringify(result.data))
                 session.user = {
-                    id: result.data.id,
-                    username:  result.data.username,
-                    fullName:  result.data.fullName,
-                    birthDate:  result.data.birthDate,
-                    gender:  result.data.gender,
-                    phone:  result.data.phone,
-                    location:  result.data.location,
-                    school:  result.data.school,
-                    avatar:  result.data.avatar,
-                    role:  result.data.role,
-                    dataStatus:  result.data.dataStatus,
+                    ...session.user,
+                    ...result.data,
                     accessToken:  token.accessToken,
                     refreshToken:  token.refreshToken,
-                    createdDatetime:  result.data.createdDatetime,
-                    lastLoginAt:  result.data.lastLoginAt,
                 }
             }
+            console.log("[NextAuth] session - session: ", session)
             return session;
         },
-    }
+    },
 }
 
 const handler = NextAuth(authOptions);

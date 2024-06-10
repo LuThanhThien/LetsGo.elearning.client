@@ -1,5 +1,4 @@
 import { CircularProgress, Grid, Skeleton } from "@mui/material";
-import { BeatLoader } from "react-spinners";
 
 export default function Loading() {
     return (

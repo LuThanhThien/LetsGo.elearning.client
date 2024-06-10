@@ -1,19 +1,16 @@
 "use client"
 
-import { TOP_BANNER } from "@/lib/img";
-import { SquareArrowOutUpRight, SquareUserRound, TelescopeIcon, Zap } from "lucide-react";
-import { CurrentCourses, MainCourses } from "@/lib/seeds/course";
+import { SquareUserRound, TelescopeIcon, Zap } from "lucide-react";
+import { CurrentCourses, MainCourses } from "../seeds/course";
 import React from "react";
-import { PriceTable } from "@/components/info/PriceTable";
-import { Prices } from "@/lib/seeds/info";
 import { useSession } from "next-auth/react";
-import { Box, Grid, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
-import CourseCarousel from "@/components/info/CourseCarousel";
-import { Colors, FontSize } from "@/lib/styles";
-import { stat } from "fs";
-import Loading, { LoadingRectangular } from "./loading";
+import Loading from "./loading";
+import { TOP_BANNER } from "../core/lib/image";
+import { DefaultButton } from "../core/index.ui";
+import { CourseCarousel } from "../components/index.component";
+import { Colors, FontSize } from "../core/lib/style";
 
 
 export default function Home() {
@@ -68,13 +65,13 @@ export default function Home() {
                   <span className="font-bold" style={{color: Colors.secondary, fontWeight: "bold"}}>Let's Go</span> là nền tảng học và luyện thi trực tuyến môn Toán dành cho <span className="font-bold" style={{color: Colors.secondary, fontWeight: "bold"}}>học sinh THPT</span>. Đăng ký ngay để truy cập những tài nguyên học tập miễn phí!
                 </Typography>
               </Grid>
-              <Grid item xs={4} alignItems={"flex-start"} justifyContent={"flex-start"}>
+              <Grid item xs={2} alignItems={"flex-start"} justifyContent={"flex-start"}>
                 {
                   session 
                   ? 
                   <Stack direction={"row"} spacing={2}>
-                    <DefaultButton sx={{ width: "35%" }} id="join-button" href="/user/profile/general" startIcon={<SquareUserRound/>}>Trang cá nhân</DefaultButton>
-                    <DefaultButton id="explore-button" sx={{ width: "30%" }} variant="contained" color="info" startIcon={<TelescopeIcon/>} onClick={handleExplore}>Khám phá</DefaultButton>
+                    <DefaultButton maxWidth="230px" id="join-button" href="/user/profile/general" startIcon={<SquareUserRound/>}>Trang cá nhân</DefaultButton>
+                    <DefaultButton id="explore-button" maxWidth="200px" variant="contained" color="info" startIcon={<TelescopeIcon/>} onClick={handleExplore}>Khám phá</DefaultButton>
                   </Stack>
                   :
                   <Grid container direction={"row"} spacing={2} justifyContent={"flex-start"} alignItems={"flex-start"}>

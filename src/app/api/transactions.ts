@@ -93,7 +93,7 @@ export class StandardError<T> implements StandardErrorType<T> {
  
    static standlize<T>(error: AxiosError<T, any>) : StandardError<T> {
       if (error.response) {
-         // console.error("Standard Error response: ", error.response);
+         console.error("Standard Error response: ", error.response);
          return new StandardError<T>(
          (error.response as ResponseError).data.error,
          (error.response as ResponseError).data.status,

@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react";
-import { cn } from "@/lib/utils";
-import { PriceInfoType, PriceLevel } from "@/dto/PriceInfo";
+import { cn } from "@/core/lib/utils";
+import { PriceInfoType, PriceLevel } from "@/core/index.models";
 import Image from "next/image";
 
 type PriceCardProps = {

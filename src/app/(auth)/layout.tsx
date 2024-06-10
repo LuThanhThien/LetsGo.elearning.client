@@ -2,29 +2,22 @@
 import { 
     AUTH_THUMBNAIL1, 
     AUTH_THUMBNAIL2,
-    AUTH_THUMBNAIL3,
-    AUTH_THUMBNAIL4,
-    LOGO_IMAGE_DARK,
-} from "@/lib/img";
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+} from "../../core/lib/image";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { Card, Paper, Stack } from "@mui/material";
-import { Colors } from "@/lib/styles";
-import { randomChoice } from "@/lib/utils";
+import { Card, Stack } from "@mui/material";
+import { Colors } from "../../core/lib/style";
+import { randomChoice } from "../../core/lib/utils";
 import { signOut, useSession } from "next-auth/react";
 import React, { useEffect } from "react";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
 import { useRouter } from "next/navigation";
 import Loading from "../loading";
 import { ArrowBigLeftDash, LogOutIcon } from "lucide-react";
+import {
+    DefaultButton,
+} from "../../core/index.ui";
+
 
 // export const metadata = {
 //     title: "Đăng nhập",

@@ -1,7 +1,7 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { interMedium, interRegular, poppinsExtraBold } from './lib/fonts';
-import { FontSize } from './lib/styles';
+import { interRegular } from './core/lib/font';
+import { FontSize } from './core/lib/style';
 
 const theme = createTheme({
     typography: {

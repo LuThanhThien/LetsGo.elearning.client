@@ -1,5 +1,5 @@
 "use client"
-import { LOGO_IMAGE_DARK } from "@/lib/img";
+import { LOGO_IMAGE_DARK } from "../../core/lib/image";
 import Image from "next/image";
 import { 
   Bell,
@@ -12,46 +12,34 @@ import {
   LockKeyholeIcon, 
   LogIn, 
   LogOutIcon, 
-  MenuIcon, 
   Pi, 
-  Settings, 
   SquareFunction, 
   Zap
 } from "lucide-react";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { 
   AppBar, 
   Avatar, 
   Box, 
   Button, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogContentText, 
-  DialogTitle, 
   Divider, 
   Grid, 
   IconButton, 
-  Link, 
   Menu, 
   MenuItem, 
   Skeleton, 
   Stack, 
   Toolbar, 
   Typography,
-  useScrollTrigger, 
 } from "@mui/material";
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { KeyboardArrowDown, NotificationAddRounded, NotificationImportantOutlined } from "@mui/icons-material";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import DefaultButton from "../ui/inputs/DefaultButton";
-import TopBar from "./Topbar";
 import { signOut, useSession } from "next-auth/react";
-import { set } from "zod";
-import { FontSize, Styles } from "@/lib/styles";
-import DefaultDialog from "../ui/feedback/DefaultDialog";
-import { Platform } from "@/lib/messages";
-import { useUser } from "@/context/UserContext";
+import { FontSize, Styles } from "../../core/lib/style";
+import { Platform } from "../../core/lib/message";
+import { useUser } from "../../core/index.context";
+import { DefaultButton, DefaultDialog } from "../../core/index.ui";
+
 
 
 export default function HeaderUser() {

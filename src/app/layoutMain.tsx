@@ -10,7 +10,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { elGR } from  "@mui/x-date-pickers/locales";
 import 'dayjs/locale/vi'
 import 'dayjs/locale/en-gb'
-import UserProvider from "@/context/UserContext";
+import { UserProvider } from "../core/index.context";
 
 type Props = Readonly<{
   children: React.ReactNode;

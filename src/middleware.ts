@@ -1,7 +1,23 @@
-import {NextRequest, NextResponse} from 'next/server'
-import {getToken} from 'next-auth/jwt'
-import { AuthorityPatterns } from './app/api/const'
-import { Role } from './dto/Auth'
+import { NextRequest, NextResponse } from 'next/server'
+import { getToken } from 'next-auth/jwt'
+import { Role } from './core/index.models'
+
+
+export class AuthorityPatterProvider  {
+    pattern: string;
+    roles: Role[];
+ 
+    constructor(pattern: string, roles: Role[]) {
+       this.pattern = pattern;
+       this.roles = roles;
+    }
+}
+ 
+ export const AuthorityPatterns = [
+    new AuthorityPatterProvider("/admin/closet/*", [Role.ADMIN]),
+    new AuthorityPatterProvider("/admin/*", [Role.ADMIN, Role.STAFF]),
+    new AuthorityPatterProvider("/user/*", [Role.USER, Role.ADMIN, Role.STAFF]),
+]
 
 export async function middleware(req: NextRequest) {
     // Token from request
@@ -13,6 +29,8 @@ export async function middleware(req: NextRequest) {
     const {pathname} = req.nextUrl
     const isCheckAuth = AuthorityPatterns.find(api => pathname.match(api.pattern))
     if (isCheckAuth) {
+        console.log("Check auth: ", isCheckAuth)
+        console.log("Session: ", session)
         if (!session) {
             const url = req.nextUrl.clone()
             url.pathname = '/login'
@@ -21,6 +39,7 @@ export async function middleware(req: NextRequest) {
         // Check user role
         const userRole = session?.role ? session.role : Role.ANONYMOUS
         // Get object from AuthorityPatterns
+        console.log("User role: ", userRole)
         const requestRole = isCheckAuth.roles;
         // Check if user has role
         const hasRole = requestRole.includes(userRole)

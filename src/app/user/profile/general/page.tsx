@@ -1,23 +1,28 @@
 "use client"
 import Loading from "@/app/loading";
-import PhoneTextField from "@/components/ui/inputs/PhoneTextField";
-import { useUser } from "@/context/UserContext";
-import { Colors, FontSize, Styles } from "@/lib/styles";
+import { Colors, FontSize, Styles } from "../../../../core/lib/style";
 import { Card, CardContent, Chip, FormControl, FormHelperText, FormLabel, Grid, InputAdornment, Stack, TextField, Typography, TypographyProps, useTheme } from "@mui/material";
 import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
 import { useSession } from "next-auth/react"
-import provinces from '../../../../lib/json/provinces.json';
+import provinces from '../../../../core/lib/json/provinces.json';
 import dayjs from "dayjs";
-import { ChangePasswordDto, Gender, UserUpdateDto } from "@/dto/User";
 import { useEffect } from "react";
-import PasswordTextField from "@/components/ui/inputs/PasswordTextField";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
 import { changePassword, updateUser } from "@/app/api/user/actions";
-
 import { toast } from "sonner";
-import ControlledAutocomplete from "@/components/ui/inputs/ControlledAutocomplete";
-import ControlledDatePicker from "@/components/ui/inputs/ControlledDatePicker";
-import { ControlledSelectEnum } from "@/components/ui/inputs/ControlledSelect";
+import { useUser } from "../../../../core/index.context";
+import { 
+  ChangePasswordDto, 
+  UserUpdateDto 
+} from "../../../../core/index.schema";
+import { Gender } from "../../../../core/index.models"
+import {
+  DefaultButton,
+  PhoneTextField,
+  PasswordTextField, 
+  ControlledAutocomplete,
+  ControlledDatePicker,
+  ControlledSelectEnum
+} from "../../../../core/index.ui";
 
 type InputLabelProps = {
   label: string,
@@ -53,7 +58,6 @@ export default function ProfileGeneral() {
     profileForm, resetProfileForm,
     changePasswordForm, clickChangePassword, 
     handleCloseChangePassword, resetChangePasswordForm,
-    totalModules,
   } = useUser();
 
   const onInvalid = (errors: any) => {
@@ -80,6 +84,7 @@ export default function ProfileGeneral() {
   const handleChangePassword = async (data: ChangePasswordDto) => {
     console.log("Changing password")
     console.log(data)
+    throw new Error("Not implemented yet");
     const response = await changePassword(data);
     if (response.error) {
       console.log("Error changing password");
@@ -145,7 +150,7 @@ export default function ProfileGeneral() {
                     />
                   </Grid>
                   <Grid item xs={6}>
-                    <InputLabel label="Địa chỉ emailTemplate"/>
+                    <InputLabel label="Địa chỉ email"/>
                     <TextField
                       {...profileForm.register("username")}
                       error={!!profileForm.formState.errors.username}
@@ -221,7 +226,7 @@ export default function ProfileGeneral() {
                             }
                           }}
                       />
-                      <FormHelperText error>{profileForm.formState.errors.birthDate?.message}</FormHelperText>
+                      <FormHelperText sx={Styles.FormHelperText}  error>{profileForm.formState.errors.birthDate?.message}</FormHelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={2}>
@@ -238,7 +243,7 @@ export default function ProfileGeneral() {
                           </InputAdornment>
                         }
                       />
-                      <FormHelperText error>{profileForm.formState.errors.gender?.message}</FormHelperText>
+                      <FormHelperText sx={Styles.FormHelperText} error>{profileForm.formState.errors.gender?.message}</FormHelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
@@ -363,7 +368,7 @@ export default function ProfileGeneral() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                  <FormHelperText error>{changePasswordForm.formState.errors.root?.message}</FormHelperText>
+                  <FormHelperText sx={Styles.FormHelperText} error>{changePasswordForm.formState.errors.root?.message}</FormHelperText>
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} direction={"row"} justifyContent={"center"}>
@@ -400,7 +405,7 @@ export default function ProfileGeneral() {
                       </Grid>
                       <Grid item xs={6}>
                         <InputLabel label="Loại tài khoản"/>
-                          <Chip label={AccountType(totalModules).label} color="primary" style={{backgroundColor: AccountType(totalModules).color, fontWeight: "bold"}}/>
+                          <Chip label={AccountType(session?.user?.numberEnrollmentModules).label} color="primary" style={{backgroundColor: AccountType(session?.user?.numberEnrollmentModules).color, fontWeight: "bold"}}/>
                       </Grid>
                       <Grid item xs={6}>
                         <InputLabel label="Ngày tham gia"/>
@@ -408,7 +413,7 @@ export default function ProfileGeneral() {
                       </Grid>
                       <Grid item xs={6}>
                         <InputLabel label="Số bài học tham gia"/>
-                        <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{totalModules}
+                        <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{session?.user?.numberEnrollmentModules}
                         </Typography>
                       </Grid>
                     </Grid>

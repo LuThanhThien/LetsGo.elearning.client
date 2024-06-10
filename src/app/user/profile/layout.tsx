@@ -1,15 +1,17 @@
 "use client"
 import { LoadingCircle } from "@/app/loading";
-import MenuGroup, { createMenu } from "@/components/navbar/MenuGroup";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
-import DefaultDialog from "@/components/ui/feedback/DefaultDialog";
-import UserProvider, { useUser } from "@/context/UserContext";
-import { Platform } from "@/lib/messages";
-import { Colors, Styles } from "@/lib/styles";
 import { Avatar, Box, Button, Card, CardContent, Divider, Drawer, Grid, Skeleton, Stack, Toolbar, Typography, styled } from "@mui/material";
-import { History, LockKeyhole, Settings, SquareUser } from "lucide-react";
+import { Heart, History, LockKeyhole, Settings, SquareUser } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
+import { MenuGroup, createMenu } from "../../../components/index.component";
+import { Platform } from "../../../core/lib/message";
+import { Colors, Styles } from "../../../core/lib/style";
+import { UserProvider, useUser } from "../../../core/index.context";
+import {
+    DefaultButton,
+    DefaultDialog,
+  } from "../../../core/index.ui";
 
 
 interface Props {
@@ -34,7 +36,8 @@ export default function ProfileLayout(props : Props) {
     const userMenu = [
         createMenu("Thông tin cá nhân", <SquareUser size={23}/>, "/user/profile/general"),
         createMenu("Lịch sử thanh toán", <History size={23}/>, "/user/profile/billing"),
-        // createMenu("Cài đặt", <Settings size={23}/>, "/user/profile/settings"),
+        createMenu("Cài đặt", <Settings size={23}/>, "/user/profile/settings"),
+        createMenu("Khoá học đã lưu", <Heart size={23}/>, "/user/profile/saved-courses")
     ]   
 
     // Signout dialog

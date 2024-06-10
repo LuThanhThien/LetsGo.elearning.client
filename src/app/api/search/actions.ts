@@ -1,8 +1,33 @@
 
 import { AxiosError } from "axios";
 import { request } from "../axios";
-import { RequestMethod, SearchAPI, SearchModel, SearchType } from "../const";
+import { RequestMethod } from "../const";
 import { FetchResponse, StandardError, StandardResponse } from "../transactions";
+
+
+
+export const SearchAPI = (api: string, searchType: SearchType, queryParams: any) => {
+   let queryString = "";
+   if (searchType === SearchType.KEYWORD) {
+      queryString = `?keyword=${queryParams}`;
+   } else {
+      queryString = Object.keys(queryParams).map(key => {
+         return `${key}=${queryParams[key]}`;
+      }).join("&");
+   }
+   return api + `/${searchType}?` + queryString;
+}
+
+export enum SearchType {
+   KEYWORD = "search-keyword",
+   AND = "search-and",
+   OR = "search-or",
+}
+
+export enum SearchModel {
+   User = '/user',
+   Enrollment = '/enrollment',  
+}
 
 export async function search(searchModel: SearchModel, searchType: SearchType, queryParams: any) : Promise<FetchResponse<any>> {
    console.log("Search search Model: ", searchModel);

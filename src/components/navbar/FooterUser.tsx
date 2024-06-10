@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { Contact, Content } from '@/lib/seeds/info';
+import { Contact, Content } from '../../seeds/info';
 import { 
    FACEBOOK_SQUARE,
    TIKTOK_SQUARE,
    YOUTUBE_SQUARE
-} from '@/lib/img';
+} from '../../core/lib/image';
 import Image from 'next/image';
-import { Box, Button, Divider, Grid, IconButton, Input, Link, Stack, TextField, Typography } from '@mui/material';
-import { Colors, FontSize } from '@/lib/styles';
+import { Box, Divider, Grid, IconButton, Input, Link, Stack, TextField, Typography } from '@mui/material';
+import { Colors, FontSize } from '../../core/lib/style';
 import { Send } from 'lucide-react';
 
 
@@ -94,8 +94,8 @@ export default function FooterUser() {
                 </Link>
             </Stack>
             <Stack direction={"row"} spacing={1} paddingTop={2}>
-                <Input sx={{fontSize: FontSize.small}} placeholder='Nhập emailTemplate của bạn'></Input>
-                <IconButton color='inherit' aria-label="send emailTemplate">
+                <Input sx={{fontSize: FontSize.small}} placeholder='Nhập email của bạn'></Input>
+                <IconButton color='inherit' aria-label="send email">
                   <Send/>
                 </IconButton>
             </Stack>

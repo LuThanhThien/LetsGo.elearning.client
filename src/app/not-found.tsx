@@ -1,12 +1,11 @@
 "use client"
-import { Button, Grid, Link, Stack, Typography } from "@mui/material";
-import { Colors } from "@/lib/styles";
-import { ArrowBigLeftDash, Headset, StepBackIcon } from "lucide-react";
-import { CallEndRounded } from "@mui/icons-material";
+import { Grid, Link, Stack, Typography } from "@mui/material";
+import { ArrowBigLeftDash, Headset } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Platform } from "@/lib/messages";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
+import { Colors } from "../core/lib/style";
+import { Platform } from "../core/lib/message";
+import { DefaultButton } from "../core/index.ui";
 
 export default function NotFound() {
    const router = useRouter();

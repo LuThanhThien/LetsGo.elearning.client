@@ -5,21 +5,17 @@ import { useForm } from "react-hook-form"
 import { 
    nextLogin
 } from "@/app/api/auth/actions";
-import { LoginSchema, LoginDto } from "@/dto/Auth";
+import { LoginSchema, LoginDto } from "../../../core/schema/Auth";
 import { NextAuthProviders } from "@/app/api/auth/[...nextauth]/route";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Box, CardMedia, CircularProgress, FormHelperText, Grid, IconButton, Input, InputAdornment, Link, Stack, TextField, Typography, withStyles } from "@mui/material";
-import { FACEBOOK_COLOR, GOOGLE_COLOR } from "@/lib/img";
+import { FormHelperText, Grid, Link, Stack, TextField, Typography } from "@mui/material";
+import { FACEBOOK_COLOR, GOOGLE_COLOR } from "../../../core/lib/image";
 import Image from "next/image";
-import { Colors } from "@/lib/styles";
 import { toast } from "sonner";
-import { Eye, EyeOff, SaveIcon } from "lucide-react";
-import DefaultButton from "@/components/ui/inputs/DefaultButton";
-import { LoadingButton } from "@mui/lab";
-import Loading from "@/app/loading";
-import PhoneTextField from "@/components/ui/inputs/PhoneTextField";
-import PasswordTextField from "@/components/ui/inputs/PasswordTextField";
+import {
+   DefaultButton,
+   PasswordTextField
+} from "../../../core/index.ui";
 
 
 export default function LoginForm() {
