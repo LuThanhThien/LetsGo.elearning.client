@@ -1,5 +1,5 @@
 import { EnumStyle } from "../../lib/style";
-import { DataStatus } from "../../lib/avatar";
+import { DataStatus } from "../global/AuditData";
 
 export type AuthResponse = {
    id: number,

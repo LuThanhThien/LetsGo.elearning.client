@@ -1,4 +1,9 @@
 import React from "react";
+import { OverridableStringUnion } from "@mui/types";
+
+export const GlobalStyle = {
+    width: "1400px"
+}
 
 export const Colors = {
     primary: "#fcd46e",
@@ -47,15 +52,14 @@ export const Styles = {
             WebkitTextFillColor: "#787878",
         },
     },
-    FormHelperText: {
-        fontSize: FontSize.semium,
-    }
 }
 
 
 export interface EnumStyle {
-    color?: string;
+    label?: string;
+    color?: OverridableStringUnion<
+    'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | any>;
     backgroundColor?: string;
     borderColor?: string;
-    icon?: React.ReactNode;
+    icon?: React.ReactElement;
 }

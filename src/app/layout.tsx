@@ -1,5 +1,5 @@
 import { interRegular } from "../core/lib/font";
-import LayoutMain from "./layoutMain";
+import LayoutMain from "./layout.main";
 import { Metadata } from "next";
 import { SessionContext } from "../core/index.context";
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter'
@@ -28,7 +28,6 @@ export default function RootLayout(props : Props) {
     <html lang="en">
       <body className={interRegular.className}>
         <SessionContext>
-          
               <AppRouterCacheProvider>
                 <ThemeProvider theme={theme}>
                   <React.Fragment>

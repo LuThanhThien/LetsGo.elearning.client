@@ -1,18 +1,28 @@
 "use client"
 import Loading from "@/app/loading";
 import { useUser } from "../../../../core/context/UserContext";
-import { Colors, FontSize, Styles } from "../../../../core/lib/style";
+import { Colors, EnumStyle, FontSize, Styles } from "../../../../core/lib/style";
 import { Autocomplete, Box, Card, CardContent, Checkbox, Chip, FormControl, FormHelperText, FormLabel, Grid, Icon, InputAdornment, MenuItem, Select, Stack, TextField, Typography, TypographyProps, useTheme } from "@mui/material";
-import { Banknote, Cake, Check, CircleUserRound, CreditCard, Key, Mail, MapPin, PackageCheck, Phone, Receipt, ReceiptText, RectangleEllipsis, School, Shapes, SquareCheckBig, UsersRound } from "lucide-react";
-import { useSession } from "next-auth/react"
+import { AlertCircle, BadgeAlert, BadgeCheck, BadgeInfo, BadgeX, Banknote, Cake, Check, CircleUserRound, CreditCard, Key, Mail, MapPin, OctagonAlert, PackageCheck, Phone, Receipt, ReceiptText, RectangleEllipsis, School, Shapes, SquareCheckBig, UsersRound } from "lucide-react";
 import {
   DefaultButton,
   DefaultTablePagination,
   DefaultTableCell, 
   DefaultTableRow,
+  DefaultChip,
 } from "../../../../core/index.ui";
 import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../core/lib/utils";
 import { PaymentMethod, PaymentStatus } from "../../../../core/index.models";
+import { MuiColor } from "@/core/ui/display/MuiColor";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+
+
+export const PaymentStatusStyles: Record<PaymentStatus, EnumStyle> = {
+  [PaymentStatus.PENDING]: { color: MuiColor({}).info, icon: <BadgeInfo size={17}/> },
+  [PaymentStatus.COMPLETED]: { color: MuiColor({}).success, icon: <BadgeCheck size={17}/> },
+  [PaymentStatus.FAILED]: { color: MuiColor({}).error, icon: <BadgeX size={17}/> },
+}
 
 type InputLabelProps = {
   label: string,
@@ -37,22 +47,29 @@ export default function BillingPage() {
         paddingBottom: 0.5,
       }
   }
-
-  const {data: session, status, update} = useSession();
   const { 
+    session,
     contextStatus,
-    payments,
+    payments
   } = useUser();
-
-  const theme = useTheme();
-
-
+  const [totalPayment, setTotalPayment] = useState<number>(0);
+  const [totalPending, setTotalPending] = useState<number>(0);
   
-  const PaymentMethodColor = {
-    CREDIT_CARD: "primary",
-    BANK_TRANSFER: "info",
-    MOMO: "error",
-  }
+  useEffect(() => {
+    if (payments.length > 0) {
+      let totalPayment = 0;
+      let totalPending = 0;
+      payments.forEach(payment => {
+        if (getEnumValue(PaymentStatus, payment.paymentStatus) == PaymentStatus.COMPLETED) {
+          totalPayment += payment.amount;
+        } else if (getEnumValue(PaymentStatus, payment.paymentStatus) == PaymentStatus.PENDING){
+          totalPending += payment.amount;
+        }
+      });
+      setTotalPayment(totalPayment);
+      setTotalPending(totalPending);
+    }
+  }, [payments]);
 
 
   if (contextStatus === "loading") return <Loading/>;
@@ -74,17 +91,26 @@ export default function BillingPage() {
                 }}>
               <CardContent>
                 <Grid container direction={"row"} alignItems={"center"}>
-                  <Grid item xs={6}>
-                    <Grid container direction={"row"} spacing={2} justifyContent={"flex-start"}>
+                  <Grid item xs={6} paddingLeft={2}>
+                    <Grid container direction={"row"} spacing={7} justifyContent={"flex-start"}>
                       <Grid item>
-                        Content here
+                        <Typography variant="caption">Đã thanh toán</Typography>
+                        <Typography fontSize={FontSize.extra} fontWeight={"bold"}>{doFormatCurrency(totalPayment)}</Typography>
+                      </Grid>
+                      <Grid item >
+                      <Typography variant="caption">Chờ thanh toán</Typography>
+                        <Typography fontSize={FontSize.extra} fontWeight={"bold"}>{doFormatCurrency(totalPending)}</Typography>
+                      </Grid>
+                      <Grid item>
+                      <Typography variant="caption">Tổng khoá học</Typography>
+                        <Typography fontSize={FontSize.extra} fontWeight={"bold"}>{session.user?.numberEnrollmentModules}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <Grid container direction={"row"} spacing={2} justifyContent={"flex-end"} alignItems={"center"}>
+                  <Grid item xs={6} alignItems={"flex-start"}>
+                    <Grid container direction={"row"} spacing={2} justifyContent={"flex-end"} alignItems={"flex-start"}>
                       <Grid item>
-                        <DefaultButton {...topButtonProps} variant="outlined" color="warning" startIcon={<ReceiptText/>}>Xuất PDF</DefaultButton>
+                        <DefaultButton {...topButtonProps} variant="outlined" color="warning" startIcon={<ReceiptText/>}>Hoá đơn điện tử</DefaultButton>
                       </Grid>
                       <Grid item>
                         <DefaultButton {...topButtonProps} variant="outlined" color="info" startIcon={<CreditCard/>}>Thanh toán</DefaultButton>
@@ -110,42 +136,32 @@ export default function BillingPage() {
                       rows={payments}
                       renderHead={() => (
                         <DefaultTableRow>
-                          <DefaultTableCell padding="checkbox">
-                          <Checkbox
-                              color="primary"
-                              // indeterminate={numSelected > 0 && numSelected < rowCount}
-                              // checked={rowCount > 0 && numSelected === rowCount}
-                              // onChange={onSelectAllClick}
-                              sx={{ paddingRight: 2}}
-                              inputProps={{
-                                'aria-label': 'select all desserts',
-                              }}
-                            />
-                          </DefaultTableCell>
-                          <DefaultTableCell width={"20%"} align="left">Ngày thanh toán</DefaultTableCell>
+                          <DefaultTableCell width={"20%"} align="left" sx={{paddingLeft: 3}}>Ngày tạo</DefaultTableCell>
+                          <DefaultTableCell width={"20%"} align="left" sx={{paddingLeft: 3}}>Ngày thanh toán</DefaultTableCell>
                           <DefaultTableCell width={"20%"} align="left">Số tiền</DefaultTableCell>
                           <DefaultTableCell width={"20%"} align="left">Phương thức thanh toán</DefaultTableCell>
-                          <DefaultTableCell align="left">Trạng thái thanh toán</DefaultTableCell>
+                          <DefaultTableCell align="left">Trạng thái</DefaultTableCell>
                           <DefaultTableCell align="center"></DefaultTableCell>
                         </DefaultTableRow>
                       )}
                       renderBody={(row , index) => (
                         <DefaultTableRow>
-                          <DefaultTableCell padding="checkbox" align="center">
-                            <Checkbox
-                              color="primary"
-                              // indeterminate={numSelected > 0 && numSelected < rowCount}
-                              // checked={rowCount > 0 && numSelected === rowCount}
-                              // onChange={onSelectAllClick}
-                              sx={{ paddingRight: 2}}
-                              inputProps={{
-                                'aria-label': 'select all desserts',
-                              }}
-                            />
-                          </DefaultTableCell>
-                          <DefaultTableCell width={"20%"} align="left">
+                          <DefaultTableCell width={"20%"} align="left" sx={{paddingLeft: 3}}>
                             <Typography >{doFormatDate(row.createdDatetime)}</Typography>
                             <Typography fontWeight={"bold"} variant="caption">{doFormatTime(row.createdDatetime)}</Typography>
+                          </DefaultTableCell>
+                          <DefaultTableCell width={"20%"} align="left" sx={{paddingLeft: 3}}>
+                            {
+                              row.paymentDatetime ?
+                              <>
+                              <Typography >{doFormatDate(row.paymentDatetime)}</Typography>
+                              <Typography fontWeight={"bold"} variant="caption">{doFormatTime(row.paymentDatetime)}</Typography>
+                              </>
+                              : 
+                              <>
+                              <Typography variant="subtitle2">(Chờ thanh toán)</Typography>
+                              </>
+                            }
                           </DefaultTableCell>
                           <DefaultTableCell width={"20%"} align="left">
                             <Typography fontWeight={"bold"}>
@@ -158,12 +174,15 @@ export default function BillingPage() {
                             </Typography>
                           </DefaultTableCell>
                           <DefaultTableCell align="left">
-                            <Chip
+                            <DefaultChip
+                              sx={{
+                                backgroundColor: PaymentStatusStyles[getEnumValue(PaymentStatus, row.paymentStatus) as PaymentStatus].color,
+                              }}
+                              icon={PaymentStatusStyles[getEnumValue(PaymentStatus, row.paymentStatus) as PaymentStatus].icon}
                               label={
-                                  <Typography sx={{ padding: 0.7}}>
-                                    {<Check size={15}/>} 
-                                    {getEnumValue(PaymentStatus, row.paymentStatus)}
-                                  </Typography>
+                                <Typography variant="subtitle2">
+                                  {getEnumValue(PaymentStatus, row.paymentStatus)}
+                                </Typography>
                               }
                             />
                           </DefaultTableCell>

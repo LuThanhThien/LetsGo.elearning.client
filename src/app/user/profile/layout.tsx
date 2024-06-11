@@ -12,6 +12,7 @@ import {
     DefaultButton,
     DefaultDialog,
   } from "../../../core/index.ui";
+import { MainContainer } from "@/app/layout.main";
 
 
 interface Props {
@@ -30,7 +31,7 @@ export default function ProfileLayout(props : Props) {
         return 300;
     }
 
-    const { profileForm, contextStatus } = useUser();
+    const { contextStatus } = useUser();
     
 
     const userMenu = [
@@ -52,11 +53,16 @@ export default function ProfileLayout(props : Props) {
     };
 
     return (
-    <>
-    <Stack direction={"row"} 
-    sx={{
-        backgroundColor: Colors.shadow,
-    }}>
+    <MainContainer 
+        backgroundProps={{
+            sx: {
+                backgroundColor: Colors.shadow,
+            }
+        }}
+        contentProps={{
+            direction: "row"
+        }}
+    >
         <Stack 
         direction={"row"}
         sx={{
@@ -136,11 +142,7 @@ export default function ProfileLayout(props : Props) {
             </Card>
         </Stack>
         {props.children}
-    </Stack>
     <DefaultDialog
-        sx={{
-            margin: 10,
-        }}
         open={openSignout}
         onClose={handleCloseSignout}
         aria-labelledby="alert-dialog-title"
@@ -158,7 +160,7 @@ export default function ProfileLayout(props : Props) {
             </>
         )}
     />
-    </>
+    </MainContainer>
   );
 }
 

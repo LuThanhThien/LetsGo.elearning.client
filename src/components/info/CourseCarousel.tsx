@@ -4,19 +4,19 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { Card, CardActionArea, CardContent, CardHeader, CardMedia, Chip, Grid, Stack, Typography } from "@mui/material";
 import { FontSize } from "../../core/lib/style";
-import { Course, CourseTagStyles } from "../../core/index.models";
+import { CourseInfo, CourseTagStyles } from "../../core/index.models";
 
 
 export type CourseCarouselProps = {
-   courses: Course[];
+   courses: CourseInfo[];
    cardPerSlide?: number ;
    height?: number;
 }
 
 
-export const CourseCard = ({ course, carouselHeight } : { course: Course, carouselHeight: number }) => {
+export const CourseCard = ({ course, carouselHeight } : { course: CourseInfo, carouselHeight: number }) => {
     const card = { 
-        maxWidth: 390, 
+        maxWidth: 320, 
         borderRadius: 2, 
         boxShadow: 2,
         transition: "transform 0.2s ease-in-out",

@@ -8,7 +8,7 @@ import {
 } from '../../core/lib/image';
 import Image from 'next/image';
 import { Box, Divider, Grid, IconButton, Input, Link, Stack, TextField, Typography } from '@mui/material';
-import { Colors, FontSize } from '../../core/lib/style';
+import { Colors, FontSize, GlobalStyle } from '../../core/lib/style';
 import { Send } from 'lucide-react';
 
 
@@ -104,30 +104,31 @@ export default function FooterUser() {
    }
 
    return (
-      <Box sx={{ flexGrow: 1 }} bgcolor={Colors.primaryLighten}>
-         <Grid container direction={"row"} 
-            paddingTop={5} paddingBottom={5}
-            paddingLeft={30} paddingRight={30}
-         >
-            <Grid item xs={8}>
-               <FooterInformation/>
+      <Stack sx={{ flexGrow: 1, }} bgcolor={Colors.primaryLighten} alignItems={"center"}>
+            <Grid container direction={"row"} 
+               paddingTop={5} paddingBottom={5}
+               paddingLeft={30} paddingRight={30}
+               width={GlobalStyle.width} justifyContent={"center"} 
+            >
+               <Grid item xs={8}>
+                  <FooterInformation/>
+               </Grid>
+               <Grid item xs={4}>
+                  <FooterFollow/>
+               </Grid>
+               <Grid item xs={12} paddingTop={4}>
+                  <Divider color={"black"}/>
+               </Grid>
+               <Grid item xs={12} 
+                  paddingTop={3}
+                  alignItems={"flex-start"}
+                  >
+                     <Typography fontSize={FontSize.micro} fontWeight={"bold"}>
+                        Let's Go HCMC &copy; {new Date().getFullYear()} All rights reserved.
+                     </Typography>
+               </Grid>
             </Grid>
-            <Grid item xs={4}>
-               <FooterFollow/>
-            </Grid>
-            <Grid item xs={12} paddingTop={4}>
-               <Divider color={"black"}/>
-            </Grid>
-            <Grid item xs={12} 
-               paddingTop={3}
-               alignItems={"flex-start"}
-               >
-                  <Typography fontSize={FontSize.micro} fontWeight={"bold"}>
-                     Let's Go HCMC &copy; {new Date().getFullYear()} All rights reserved.
-                  </Typography>
-            </Grid>
-         </Grid>
-      </Box>
+      </Stack>
    )
 
 }

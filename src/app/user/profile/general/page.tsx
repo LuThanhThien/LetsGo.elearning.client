@@ -1,7 +1,19 @@
 "use client"
 import Loading from "@/app/loading";
-import { Colors, FontSize, Styles } from "../../../../core/lib/style";
-import { Card, CardContent, Chip, FormControl, FormHelperText, FormLabel, Grid, InputAdornment, Stack, TextField, Typography, TypographyProps, useTheme } from "@mui/material";
+import { Colors, EnumStyle, FontSize, Styles } from "../../../../core/lib/style";
+import {
+  Card,
+  CardContent,
+  Chip,
+  FormControl,
+  FormLabel,
+  Grid,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
+  TypographyProps,
+} from "@mui/material";
 import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
 import { useSession } from "next-auth/react"
 import provinces from '../../../../core/lib/json/provinces.json';
@@ -21,8 +33,10 @@ import {
   PasswordTextField, 
   ControlledAutocomplete,
   ControlledDatePicker,
-  ControlledSelectEnum
+  ControlledSelectEnum,
+  HelperText,
 } from "../../../../core/index.ui";
+import { MuiColor } from "@/core/ui/display/MuiColor";
 
 type InputLabelProps = {
   label: string,
@@ -37,16 +51,12 @@ const InputLabel = ({ label: label, paddingLeft, paddingBottom, fontWeight, font
 }
 
 
-type AccountTypeProps = {
-  label: string,
-  color: string,
-}
 
-const AccountType = (numberModules: number) : AccountTypeProps=> {
-  if (200 <= numberModules) return { label: "Huyền thoại", color: Colors.tetiary }
-  if (100 <= numberModules) return { label: "Chiến binh", color: useTheme().palette.warning.main }
-  if (50 <= numberModules) return { label: "Cao nhân", color: useTheme().palette.success.main }
-  if (20 <= numberModules) return { label: "Học giả", color: useTheme().palette.info.main }
+const AccountType = (numberModules: number) : EnumStyle => {
+  if (200 <= numberModules) return { label: "Huyền thoại", color: MuiColor({transparency: 50, customColor: Colors.secondary}).custom }
+  if (100 <= numberModules) return { label: "Chiến binh", color:  MuiColor({transparency: 20}).warning }
+  if (50 <= numberModules) return { label: "Cao nhân", color: MuiColor({transparency: 20}).success }
+  if (20 <= numberModules) return { label: "Học giả", color: MuiColor({transparency: 20}).info }
   return { label: "Sơ cấp", color: Colors.shadowDarken}
 }
 
@@ -84,7 +94,6 @@ export default function ProfileGeneral() {
   const handleChangePassword = async (data: ChangePasswordDto) => {
     console.log("Changing password")
     console.log(data)
-    throw new Error("Not implemented yet");
     const response = await changePassword(data);
     if (response.error) {
       console.log("Error changing password");
@@ -226,7 +235,7 @@ export default function ProfileGeneral() {
                             }
                           }}
                       />
-                      <FormHelperText sx={Styles.FormHelperText}  error>{profileForm.formState.errors.birthDate?.message}</FormHelperText>
+                      <HelperText>{profileForm.formState.errors.birthDate?.message}</HelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={2}>
@@ -243,7 +252,7 @@ export default function ProfileGeneral() {
                           </InputAdornment>
                         }
                       />
-                      <FormHelperText sx={Styles.FormHelperText} error>{profileForm.formState.errors.gender?.message}</FormHelperText>
+                      <HelperText>{profileForm.formState.errors.gender?.message}</HelperText>
                     </FormControl>
                   </Grid>
                   <Grid item xs={6}>
@@ -311,7 +320,7 @@ export default function ProfileGeneral() {
               sx={{
                 ...Styles.Card}}>
               <CardContent>
-              <Stack direction="column" padding={3} rowGap={4} alignItems="flex-start">  
+              <Stack direction="column" padding={3} rowGap={2} alignItems="flex-start">  
                 <Grid container direction={"column"} rowSpacing={2} columnSpacing={3} >
                   <Grid item xs={12}>
                     <InputLabel label="Mật khẩu hiện tại"/>
@@ -368,10 +377,10 @@ export default function ProfileGeneral() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                  <FormHelperText sx={Styles.FormHelperText} error>{changePasswordForm.formState.errors.root?.message}</FormHelperText>
+                  <HelperText >{changePasswordForm.formState.errors.root?.message}</HelperText>
                   </Grid>
                 </Grid>
-                <Grid container spacing={2} direction={"row"} justifyContent={"center"}>
+                <Grid container direction={"row"} justifyContent={"center"}>
                     <Grid item xs={6}>
                       <DefaultButton 
                         processing={changePasswordForm.formState.isSubmitting}
@@ -416,6 +425,17 @@ export default function ProfileGeneral() {
                         <Typography fontSize={FontSize.medium} fontWeight={"bold"} paddingLeft={0.5}>{session?.user?.numberEnrollmentModules}
                         </Typography>
                       </Grid>
+                    </Grid>
+                    <Grid container direction={"row"} justifyContent={"flex-start"}>
+                      <InputLabel label="Giới thiệu"/>
+                      <TextField
+                      fullWidth
+                      placeholder="Mô tả về bản thân..."
+                      variant="outlined"
+                      multiline
+                      InputLabelProps={{ shrink: true }}
+                      rows={7}
+                    />
                     </Grid>
                 </Stack>
               </CardContent>

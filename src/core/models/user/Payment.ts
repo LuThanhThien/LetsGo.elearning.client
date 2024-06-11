@@ -1,7 +1,6 @@
 import { EnumStyle } from "../../lib/style";
 import { AuditData } from "../global/AuditData"
 
-
 export type PaymentModel = {
     id: number,
     username: string,
@@ -20,12 +19,6 @@ export enum PaymentStatus {
     FAILED = "Không thành công",
 }
 
-
-export const PaymentStatusStyles: Record<PaymentStatus, EnumStyle> = {
-    [PaymentStatus.PENDING]: { color: "info" },
-    [PaymentStatus.COMPLETED]: { color: "success" },
-    [PaymentStatus.FAILED]: { color: "error" },
-}
 
 
 export enum PaymentMethod {

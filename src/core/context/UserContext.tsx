@@ -7,9 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { getPaymentList } from "@/app/api/payment/actions";
 import { PaymentModel } from "../models/user/Payment";
 import { EnrollmentModel } from "../models/user/Enrollment";
+import { Session } from "next-auth";
 
 
 export type TypeUserContext = {
+  session: Session,
   contextStatus: "loading" | "unauthenticated" | "authenticated", 
   setContextStatus: (status: string) => void,
   profileForm: UseFormReturn<UserUpdateDto>,
@@ -120,6 +122,7 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider value={{ 
+      session,
       contextStatus, setContextStatus,
       profileForm, resetProfileForm,
       clickChangePassword, handleCloseChangePassword, handleOpenChangePassword, 

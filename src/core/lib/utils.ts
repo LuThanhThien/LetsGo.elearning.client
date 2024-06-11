@@ -71,23 +71,9 @@ export const doFormatUppercase = (value: string | undefined) => {
 
 
 export const doFormatCurrency = (value: string | number | undefined) => {
-  if (value === 0) return "0";
-  if (!value) return "";
+  if (!value) value = 0;
   // Convert the currency value to a string
-  return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-  // value = value.toString();
-  // const currencyValue = value.replace(/[^0-9.]/g, '');
-  
-  // // Split the currency value into integer and decimal parts
-  // const [integerPart, decimalPart] = currencyValue.split('.');
-
-  // // Format the integer part with commas every three digits from the right
-  // const formattedIntegerPart = addCommasToNumber(integerPart);
-
-  // // Combine the formatted integer part with the decimal part (if exists)
-  // const formattedValue = decimalPart ? `${formattedIntegerPart}.${decimalPart}` : formattedIntegerPart;
-
-  // return formattedValue;
+  return Object(value).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
 }
 
 export const doFormatDatetime = (value: string | Date | undefined, options?: any) => {
@@ -154,7 +140,7 @@ export const compareDateSmaller = (date1: Date | string, date2: Date | string) =
 }
 
 
-export const getEnumValue = (enumObject: any, key?: string | null) => {
+export function getEnumValue(enumObject: any, key?: string | null) {
   if (!key) return null;
   return enumObject[key];
 }

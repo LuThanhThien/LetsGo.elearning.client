@@ -61,6 +61,7 @@ export async function updateUser(data: UserUpdateDto) : Promise<FetchResponse<Us
 
 export async function changePassword(data: {currentPassword: string, newPassword: string}) : Promise<FetchResponse<UserModel>> {
    try {
+      console.log("Change password data: ", data);
       let res = await request({
          method: UserAPI.PASSWORD.method,
          url: UserAPI.PASSWORD.url,
@@ -68,7 +69,6 @@ export async function changePassword(data: {currentPassword: string, newPassword
       })
       return StandardResponse.standlize(res).log("Change password response");
    } catch (err) {
-      console.error("Change password error: ", err);   
       return StandardError.standlize(err as AxiosError).log("Change password error");
    }
 }

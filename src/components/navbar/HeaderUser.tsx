@@ -35,10 +35,11 @@ import {
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { FontSize, Styles } from "../../core/lib/style";
+import { FontSize, GlobalStyle, Styles } from "../../core/lib/style";
 import { Platform } from "../../core/lib/message";
 import { useUser } from "../../core/index.context";
 import { DefaultButton, DefaultDialog } from "../../core/index.ui";
+import { Global } from "@emotion/react";
 
 
 
@@ -74,17 +75,14 @@ export default function HeaderUser() {
     setOpenSignout(false);
   };
 
-  // useEffect(() => {
-  //   console.log("contextStatus", contextStatus)
-  // }, [contextStatus])
 
 
   return (
     <Box sx={{ flexGrow: 1 }} flexDirection={"row"}>
       <AppBar position="sticky"  
-        sx={{ paddingTop: 1, paddingBottom: 1, backgroundColor: "white" }}
+        sx={{ paddingTop: 1, paddingBottom: 1, backgroundColor: "white", width: "100%"}}
         >
-        <Toolbar>
+        <Toolbar sx={{justifyContent: "center"}}>
         {/* <Toolbar>
           <IconButton
               size="large"
@@ -93,7 +91,7 @@ export default function HeaderUser() {
               aria-label="menu"
           ><MenuIcon /></IconButton>
         </Toolbar> */}
-          <Grid container direction={"row"} alignItems={"center"}>
+          <Grid container direction={"row"} alignItems={"center"} width={GlobalStyle.width}>
             <Grid item xs={2} sx={{display: "flex", alignItems: "center", paddingLeft: 5}}>
                 <Image 
                   onClick={() => router.push("/")}

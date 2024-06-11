@@ -1,5 +1,5 @@
 import { Role } from "../auth/Auth";
-import { DataStatus } from "../../models/global/AuditData";
+import { DataStatus } from "../global/AuditData";
 import { EnumStyle } from "../../lib/style";
 
 export type UserModel = {
