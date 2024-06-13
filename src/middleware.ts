@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
-import { Role } from './core/index.models'
+import { Role } from './@core/index.models'
 
 
 export class AuthorityPatterProvider  {
@@ -14,8 +14,8 @@ export class AuthorityPatterProvider  {
 }
  
  export const AuthorityPatterns = [
-    new AuthorityPatterProvider("/admin/closet/*", [Role.ADMIN]),
-    new AuthorityPatterProvider("/admin/*", [Role.ADMIN, Role.STAFF]),
+    new AuthorityPatterProvider("/dashboard/admin/*", [Role.ADMIN]),
+    new AuthorityPatterProvider("/dashboard/*", [Role.ADMIN, Role.STAFF]),
     new AuthorityPatterProvider("/user/*", [Role.USER, Role.ADMIN, Role.STAFF]),
 ]
 

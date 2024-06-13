@@ -5,10 +5,10 @@ import {
    FACEBOOK_SQUARE,
    TIKTOK_SQUARE,
    YOUTUBE_SQUARE
-} from '../../core/lib/image';
+} from '../../@core/lib/image';
 import Image from 'next/image';
 import { Box, Divider, Grid, IconButton, Input, Link, Stack, TextField, Typography } from '@mui/material';
-import { Colors, FontSize, GlobalStyle } from '../../core/lib/style';
+import { Colors, FontSize, GlobalStyle } from '../../@core/lib/style';
 import { Send } from 'lucide-react';
 
 

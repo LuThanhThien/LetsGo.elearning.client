@@ -3,9 +3,9 @@ import { Grid, Link, Stack, Typography } from "@mui/material";
 import { ArrowBigLeftDash, Headset } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Colors } from "../core/lib/style";
-import { Platform } from "../core/lib/message";
-import { DefaultButton } from "../core/index.ui";
+import { Colors } from "../@core/lib/style";
+import { Platform } from "../@core/lib/message";
+import { DefaultButton } from "../@core/index.ui";
 
 export default function NotFound() {
    const router = useRouter();
@@ -25,9 +25,9 @@ export default function NotFound() {
             <Stack direction={"row"} spacing={2}>
                <DefaultButton sx={{width: 200}} onClick={() => router.push("/")} startIcon={<ArrowBigLeftDash size={23} />}>Về trang chủ</DefaultButton>
                <DefaultButton sx={{width: 250}} 
-                  onClick={() => toast.warning(Platform.NotYetSupport)}
+                  onClick={() => toast.warning(Platform.NotYetSupport, {position: "top-center"})}
                   variant="outlined" color="inherit" href="" startIcon={<Headset size={23} />}>Liên hệ chúng tôi</DefaultButton>
-            </Stack>
+            </Stack> 
          </Grid>
       </Grid>
    )

@@ -1,4 +1,4 @@
-import { FACEBOOK_SQUARE_WHITE, TIKTOK_SQUARE_WHITE, YOUTUBE_SQUARE_WHITE } from "@/core/lib/image"
+import { FACEBOOK_SQUARE_WHITE, TIKTOK_SQUARE_WHITE, YOUTUBE_SQUARE_WHITE } from "@/@core/lib/image"
 import { Contact } from "../../seeds/info"
 import { AppBar, Box, IconButton, Toolbar } from "@mui/material"
 import { Mail, Phone } from "lucide-react"

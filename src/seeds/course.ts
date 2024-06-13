@@ -1,4 +1,4 @@
-import { CourseInfo, CourseLevel, CourseTag } from "@/core/index.models"
+import { CourseInfo, CourseLevel, CourseTag } from "@/@core/index.models"
 import { 
   DEFAULT_GRADE10_THUMBNAIL1, 
   DEFAULT_GRADE11_THUMBNAIL1, 
@@ -9,7 +9,7 @@ import {
   PATTERN_THUMBNAIL3,
   PATTERN_THUMBNAIL4,
   PATTERN_THUMBNAIL5
-} from "@/core/lib/image"
+} from "@/@core/lib/image"
 
 export const MainCourses = [
    new CourseInfo ({

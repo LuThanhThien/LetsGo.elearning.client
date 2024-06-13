@@ -1,10 +1,10 @@
-import { Role } from "@/core/models/Auth";
+import { Role } from "@/@core/models/Auth";
 import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { DefaultUser } from "next-auth";
-import { PaymentModel } from "@/core/models/user/Payment";
-import { EnrollmentModel } from "@/core/models/user/Enrollment";
-import { UserModel } from "@/core/models/user/User";
+import { PaymentModel } from "@/@core/models/user/Payment";
+import { EnrollmentModel } from "@/@core/models/user/Enrollment";
+import { UserModel } from "@/@core/models/user/User";
 
 declare module "next-auth" {
 	/**

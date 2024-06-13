@@ -1,3 +1,5 @@
+export * from "./layout/MainContainer";
+
 export * from "./email/ResetPasswordOTPTemplate";
 
 export * from "./info/CourseCarousel";

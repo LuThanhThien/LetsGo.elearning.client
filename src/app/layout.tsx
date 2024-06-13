@@ -1,7 +1,6 @@
-import { interRegular } from "../core/lib/font";
-import LayoutMain from "./layout.main";
+import { interRegular } from "../@core/lib/font";
 import { Metadata } from "next";
-import { SessionContext } from "../core/index.context";
+import { SessionContext } from "../@core/index.context";
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
 import {Toaster} from "sonner";
@@ -32,9 +31,7 @@ export default function RootLayout(props : Props) {
                 <ThemeProvider theme={theme}>
                   <React.Fragment>
                     <CssBaseline>
-                        <LayoutMain>
-                            {props.children}
-                        </LayoutMain>
+                      {props.children}
                     </CssBaseline>
                   </React.Fragment>
                 </ThemeProvider>
@@ -42,6 +39,7 @@ export default function RootLayout(props : Props) {
               <Toaster
                   closeButton
                   richColors
+                  position="bottom-right"
               />
         </SessionContext>
       </body>

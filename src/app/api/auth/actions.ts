@@ -1,7 +1,7 @@
 import { request } from "@/app/api/axios";
 import { FetchResponse, StandardError, StandardResponse } from "@/app/api/transactions";
-import { LoginDto, RegisterDto, ResetPasswordOTPDto } from "../../../core/index.schema";
-import { AuthResponse, OTPEntryModel, UserModel } from "../../../core/index.models";
+import { LoginDto, RegisterDto, ResetPasswordOTPDto } from "../../../@core/index.schema";
+import { AuthResponse, OTPEntryModel, UserModel } from "../../../@core/index.models";
 import { signIn } from "next-auth/react";
 import { NextAuthProviders } from "@/app/api/auth/[...nextauth]/route";
 import { AxiosError, HttpStatusCode } from "axios";
@@ -18,7 +18,7 @@ export const AuthAPI = {
    REGISTER: RestApi.create(RequestMethod.POST, '/auth/register'),
    LOGOUT: RestApi.create(RequestMethod.POST, '/auth/logout'),
    GET_TOTP: RestApi.create(RequestMethod.GET, '/auth/totp'),
-   FORGOT_PASSWORD: RestApi.create(RequestMethod.GET, '/auth/forgot-password'),
+   FORGOT_PASSWORD: RestApi.create(RequestMethod.POST, '/auth/forgot-password?:username'),
    RESET_PASSWORD: RestApi.create(RequestMethod.PATCH, '/auth/reset-password'),
    GET_OTP_FROM_CODE: RestApi.create(RequestMethod.GET, '/auth/otp/:otpCode'),
 }

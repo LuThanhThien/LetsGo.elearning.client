@@ -8,7 +8,8 @@ import { Box, Collapse } from "@mui/material";
 import List from "@mui/material/List";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { FontSize } from "../../core/lib/style";
+import { FontSize } from "../../@core/lib/style";
+import { Role } from "@/@core/index.models";
 
 export interface MenuGroupProps {
     name: string,
@@ -22,9 +23,10 @@ export function createMenu (
     name: string,
     icon: React.ReactNode,
     path: string,
-    children?: MenuGroupProps[]
+    children?: MenuGroupProps[],
+	roles?: Role[]
 ) {
-    return {name, icon, path, children};
+    return {name, icon, path, children, roles};
 }
 
 
@@ -57,7 +59,7 @@ export function MenuGroup(props: { item: MenuGroupProps, key: number }) {
 			<ListItemIcon>
 				{item.icon}
 			</ListItemIcon>
-			<ListItemText primary={item.name} primaryTypographyProps={{fontSize: FontSize.medium}} />
+			<ListItemText primary={item.name} primaryTypographyProps={{fontSize: FontSize.semium}} />
 		</ListItemButton>
 	) : (
 		<Box>
@@ -65,7 +67,7 @@ export function MenuGroup(props: { item: MenuGroupProps, key: number }) {
 				<ListItemIcon>
 					{item.icon}
 				</ListItemIcon>
-				<ListItemText primary={item.name} primaryTypographyProps={{fontSize: FontSize.medium}} />
+				<ListItemText primary={item.name} primaryTypographyProps={{fontSize: FontSize.semium}} />
 				{open ? <KeyboardArrowDown /> : <KeyboardArrowRight />}
 			</ListItemButton>
 			<Collapse

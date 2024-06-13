@@ -1,6 +1,6 @@
 import { RequestMethod } from "@/app/api/const";
 import { request } from "@/app/api/axios";
-import { UserModel } from "@/core/models/user/User";
+import { UserModel } from "@/@core/models/user/User";
 import { RestApi } from "../rest";
 import { FetchResponse, StandardError, StandardResponse } from "../transactions";
 import { AxiosError } from "axios";

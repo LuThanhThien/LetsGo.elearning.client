@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
-import { PRICE_INFO_BASIC1, PRICE_INFO_FREE1, PRICE_INFO_SPECIALIZE1 } from "../core/lib/image";
-import { PriceInfo, PriceLevel } from "../core/index.models";
+import { PRICE_INFO_BASIC1, PRICE_INFO_FREE1, PRICE_INFO_SPECIALIZE1 } from "../@core/lib/image";
+import { PriceInfo, PriceLevel } from "../@core/index.models";
 
 export const Contact = {
    email: "letsgo.support@vn.com",

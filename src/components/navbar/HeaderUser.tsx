@@ -1,19 +1,25 @@
 "use client"
-import { LOGO_IMAGE_DARK } from "../../core/lib/image";
+import { LOGO_IMAGE_DARK } from "../../@core/lib/image";
 import Image from "next/image";
 import { 
   Bell,
   BellIcon,
   BookMarkedIcon,
+  Bookmark,
+  BusFront,
   CircleUserIcon,
   DraftingCompass, 
   GraduationCap, 
+  Heart, 
   History, 
+  Layers, 
   LockKeyholeIcon, 
   LogIn, 
   LogOutIcon, 
   Pi, 
+  Settings, 
   SquareFunction, 
+  SquareUser, 
   Zap
 } from "lucide-react";
 import React, { useState } from "react";
@@ -35,12 +41,27 @@ import {
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { FontSize, GlobalStyle, Styles } from "../../core/lib/style";
-import { Platform } from "../../core/lib/message";
-import { useUser } from "../../core/index.context";
-import { DefaultButton, DefaultDialog } from "../../core/index.ui";
+import { FontSize, GlobalStyle, Styles } from "../../@core/lib/style";
+import { Platform } from "../../@core/lib/message";
+import { useUser } from "../../@core/index.context";
+import { DefaultButton, DefaultDialog, InfoTooltip } from "../../@core/index.ui";
 import { Global } from "@emotion/react";
+import { createMenu } from "./MenuGroup";
+import { Role } from "@/@core/index.models";
+import Link from "next/link";
 
+
+const userMenu = [
+  createMenu("Lịch sử thanh toán", <History size={23}/>, "/user/billing"),
+  createMenu("Cài đặt", <Settings size={23}/>, "/user/settings"),
+  createMenu("Trang quản trị", <Layers size={23}/>, "/dashboard", undefined, [Role.ADMIN, Role.STAFF])
+]   
+
+const headerMenu = [
+  createMenu("Khoá học", <Bookmark size={23}/>, "/courses"),
+  createMenu("Lộ trình", <BusFront size={23}/>, "/roadmaps"),
+  createMenu("Về chúng tôi", <Layers size={23}/>, "/about")
+]   
 
 
 export default function HeaderUser() {
@@ -53,6 +74,7 @@ export default function HeaderUser() {
   // Dynamic content
   const [anchorElDynamic, setAnchorElDynamic] = useState<null | HTMLElement>(null);
   const openDynacmic = Boolean(anchorElDynamic);
+  const handleHoverDynacmic = (event: React.MouseEvent<HTMLElement>) => { setAnchorElDynamic(event.currentTarget); };
   const handleClickDynacmic = (event: React.MouseEvent<HTMLElement>) => { setAnchorElDynamic(event.currentTarget); };
   const handleCloseDynacmic = () => { setAnchorElDynamic(null); };
 
@@ -80,7 +102,7 @@ export default function HeaderUser() {
   return (
     <Box sx={{ flexGrow: 1 }} flexDirection={"row"}>
       <AppBar position="sticky"  
-        sx={{ paddingTop: 1, paddingBottom: 1, backgroundColor: "white", width: "100%"}}
+        sx={{ backgroundColor: "white", width: "100%"}}
         >
         <Toolbar sx={{justifyContent: "center"}}>
         {/* <Toolbar>
@@ -115,69 +137,20 @@ export default function HeaderUser() {
                   </Grid>
                 </Grid>
                 :
-                <Stack direction={"row"} spacing={3} alignContent={"center"} alignItems={"center"}>
-                  <DefaultButton
-                    aria-controls={openNavmenu ? 'demo-customized-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={openNavmenu ? 'true' : undefined}
-                    onClick={handleClickNavmenu}
-                    variant="text"
-                    color="inherit"
-                    disableElevation
-                    endIcon={<KeyboardArrowDown />}
-                  >
-                    Khóa học
-                  </DefaultButton>
-                  <Menu
-                    id="demo-customized-menu"
-                    anchorEl={anchorElNavmenu}
-                    open={openNavmenu}
-                    onClose={handleCloseNavmenu}
-                  >
-                    <MenuItem onClick={() => {handleCloseNavmenu(); router.push("/study/grade-10")}} disableRipple 
-                      sx={{ paddingTop: 1, paddingBottom: 1}}>
-                    <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                      < Pi size={20}/>
-                        <Typography  sx={{fontSize: FontSize.medium}}>Lớp 10</Typography>
-                      </Stack>
-                    </MenuItem>
-                    <MenuItem onClick={() => {handleCloseNavmenu(); router.push("/study/grade-11")}} disableRipple 
-                      sx={{ paddingTop: 1, paddingBottom: 1}}>
-                      <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                        < DraftingCompass size={20}/>
-                        <Typography  sx={{fontSize: FontSize.medium}}>Lớp 11</Typography>
-                      </Stack>
-                    </MenuItem>
-                    <MenuItem onClick={() => {handleCloseNavmenu(); router.push("/study/grade-12")}} disableRipple 
-                      sx={{fontSize: FontSize.medium, paddingTop: 1, paddingBottom: 1}}>
-                      <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                        < SquareFunction size={20}/>
-                        <Typography  sx={{fontSize: FontSize.medium}}>Lớp 12</Typography>
-                      </Stack>
-                    </MenuItem>
-                    <Divider sx={{ my: 0.5 }} />
-                    <MenuItem onClick={() => {handleCloseNavmenu(); router.push("/study/thptqg")}} disableRipple 
-                      sx={{ paddingTop: 1, paddingBottom: 1}}>
-                      <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                        < GraduationCap size={20}/>
-                        <Typography  sx={{fontSize: FontSize.medium}}>Thi THPTQG</Typography>
-                      </Stack>
-                    </MenuItem>
-                  </Menu>
-                  <DefaultButton 
-                    variant="text" 
-                    color="inherit" 
-                    onClick={() => { router.push("/price") }}
-                  >
-                    Bảng giá
-                  </DefaultButton>
-                  <DefaultButton 
-                    variant="text" 
-                    color="inherit" 
-                    onClick={() => { router.push("/about") }}
-                  >
-                    Về chúng tôi
-                  </DefaultButton>
+                <Stack direction={"row"} spacing={4} alignContent={"center"} alignItems={"center"}>
+                  {
+                    headerMenu.map((item) => {
+                      return (
+                        <DefaultButton 
+                          variant="text" 
+                          color="inherit" 
+                          onClick={() => { router.push(item.path) }}
+                        >
+                          {item.name}
+                        </DefaultButton>
+                      )
+                    })
+                  }
                 </Stack>
               }
             </Grid>
@@ -245,11 +218,11 @@ export default function HeaderUser() {
                           
                           sx={{
                             ...Styles.Avatar,
-                            width: 46, 
-                            height: 46, 
+                            width: 42, 
+                            height: 42, 
                             
                           }}
-                            onClick={handleClickDynacmic}
+                          onClick={handleClickDynacmic}
                           >
                           {session?.user.fullName?.[0]?.toUpperCase() ?? ''}
                         </Avatar>
@@ -259,41 +232,61 @@ export default function HeaderUser() {
                         anchorEl={anchorElDynamic}
                         open={openDynacmic}
                         onClose={handleCloseDynacmic}
+                        anchorOrigin={{
+                          vertical: 50,
+                          horizontal: 'right',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
                       >
-                      <MenuItem  disableRipple onClick={() => { handleCloseDynacmic(); router.push("/user/profile/general")}}
-                        sx={{ paddingTop: 1, paddingBottom: 1}}>
-                        <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                          < CircleUserIcon size={20}/>
-                          <Typography  sx={{fontSize: FontSize.medium}}>Thông tin cá nhân</Typography>
+                        <Stack direction={"column"} 
+                          spacing={2} 
+                          justifyContent={"center"} 
+                          alignItems={"center"}
+                          paddingTop={1} paddingBottom={1}                        
+                        >
+                          <InfoTooltip title="Thông tin cá nhân" placement="right-end">
+                            <Link href={"/user/profile"}
+                              onClick={() => { handleCloseDynacmic();}}
+                            >
+                              <Avatar
+                                src={session?.user.avatar}
+                                sx={{
+                                  ...Styles.Avatar,
+                                  width: 80, 
+                                  height: 80, 
+                                }}
+                                >
+                                {session?.user.fullName?.[0]?.toUpperCase() ?? ''}
+                              </Avatar>
+                            </Link>
+                          </InfoTooltip>
+                          
+                          <Typography variant="h6" fontWeight={"bold"}>{session?.user.fullName}</Typography>
                         </Stack>
-                      </MenuItem>
-                      <MenuItem onClick={() => { handleCloseDynacmic(); handleOpenChangePassword(); router.push('/user/profile/general') }} disableRipple 
-                        sx={{ paddingTop: 1, paddingBottom: 1}}>
-                        <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                          < LockKeyholeIcon size={20}/>
-                          <Typography  sx={{fontSize: FontSize.medium}}>Đổi mật khẩu</Typography>
-                        </Stack>
-                      </MenuItem>
-                      <MenuItem onClick={() => { handleCloseDynacmic(); router.push('/user/profile/billing') }} disableRipple 
-                        sx={{ paddingTop: 1, paddingBottom: 1}}>
-                        <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                          < History size={20}/>
-                          <Typography  sx={{fontSize: FontSize.medium}}>Lịch sử thanh toán</Typography>
-                        </Stack>
-                      </MenuItem>
-                      {/* <MenuItem onClick={() => { handleCloseDynacmic(); router.push('/user/profile/settings') }} disableRipple 
-                        sx={{ paddingTop: 1, paddingBottom: 1}}>
-                        <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
-                          < Settings size={20}/>
-                          <Typography  sx={{fontSize: FontSize.medium}}>Cài đặt</Typography>
-                        </Stack>
-                      </MenuItem> */}
+                        <Divider sx={{ my: 0.5 }} />
+                        {
+                          userMenu.map((item) => {
+                            if (item.roles && !item.roles.includes(session?.user.role)) return;
+                            return (
+                            <MenuItem  disableRipple onClick={() => { handleCloseDynacmic(); router.push(item.path)}}
+                            sx={{ paddingTop: 1, paddingBottom: 1}}>
+                              <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
+                                {item.icon}
+                                <Typography  sx={{fontSize: FontSize.semium}}>{item.name}</Typography>
+                              </Stack>
+                          </MenuItem>
+                          )
+                          })
+                        }
                       <Divider sx={{ my: 0.5 }} />
                       <MenuItem onClick={() => { handleCloseDynacmic(); handleClickOpenSignout(); }} disableRipple 
                         sx={{ paddingTop: 1, paddingBottom: 1}}>
                         <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
                           < LogOutIcon size={20}/>
-                          <Typography  sx={{fontSize: FontSize.medium}}>Đăng xuất</Typography>
+                          <Typography  sx={{fontSize: FontSize.semium}}>Đăng xuất</Typography>
                         </Stack>
                       </MenuItem>
                     </Menu>
