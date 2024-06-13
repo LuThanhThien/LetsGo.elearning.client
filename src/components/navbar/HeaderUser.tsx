@@ -52,8 +52,8 @@ import Link from "next/link";
 
 
 const userMenu = [
-  createMenu("Lịch sử thanh toán", <History size={23}/>, "/user/billing"),
-  createMenu("Cài đặt", <Settings size={23}/>, "/user/settings"),
+  createMenu("Lịch sử thanh toán", <History size={23}/>, "/profile/billing"),
+  createMenu("Cài đặt", <Settings size={23}/>, "/profile/settings"),
   createMenu("Trang quản trị", <Layers size={23}/>, "/dashboard", undefined, [Role.ADMIN, Role.STAFF])
 ]   
 
@@ -248,7 +248,7 @@ export default function HeaderUser() {
                           paddingTop={1} paddingBottom={1}                        
                         >
                           <InfoTooltip title="Thông tin cá nhân" placement="right-end">
-                            <Link href={"/user/profile"}
+                            <Link href={"/profile/info"}
                               onClick={() => { handleCloseDynacmic();}}
                             >
                               <Avatar

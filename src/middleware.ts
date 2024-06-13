@@ -16,7 +16,7 @@ export class AuthorityPatterProvider  {
  export const AuthorityPatterns = [
     new AuthorityPatterProvider("/dashboard/admin/*", [Role.ADMIN]),
     new AuthorityPatterProvider("/dashboard/*", [Role.ADMIN, Role.STAFF]),
-    new AuthorityPatterProvider("/user/*", [Role.USER, Role.ADMIN, Role.STAFF]),
+    new AuthorityPatterProvider("/*", [Role.USER, Role.ADMIN, Role.STAFF]),
 ]
 
 export async function middleware(req: NextRequest) {

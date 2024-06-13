@@ -70,7 +70,7 @@ export default function HomePage() {
                       session 
                       ? 
                       <Stack direction={"row"} spacing={2}>
-                        <DefaultButton maxWidth="230px" id="join-button" href="/user/profile" startIcon={<SquareUserRound/>}>Trang cá nhân</DefaultButton>
+                        <DefaultButton maxWidth="230px" id="join-button" href="/profile/info" startIcon={<SquareUserRound/>}>Trang cá nhân</DefaultButton>
                         <DefaultButton id="explore-button" maxWidth="200px" variant="contained" color="info" startIcon={<TelescopeIcon/>} onClick={handleExplore}>Khám phá</DefaultButton>
                       </Stack>
                       :
