@@ -2,11 +2,11 @@
 import { 
     AUTH_THUMBNAIL1, 
     AUTH_THUMBNAIL2,
-} from "../../../@core/lib/image";
+} from "../../../@share/lib/image";
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Card } from "@mui/material";
-import { randomChoice } from "../../../@core/lib/utils";
+import { randomChoice } from "../../../@share/lib/utils";
 import React from "react";
 
 const AuthLayout = ({ children: children }: { children: React.ReactNode }) => { 

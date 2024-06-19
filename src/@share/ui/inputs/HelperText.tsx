@@ -1,5 +1,5 @@
 "use client"
-import { FontSize } from "@/@core/lib/style";
+import { FontSize } from "@/@share/lib/style";
 import { FormHelperText, FormHelperTextProps, styled } from "@mui/material";
 
 

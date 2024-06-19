@@ -3,8 +3,8 @@ import { FetchResponse, StandardError, StandardResponse } from "../transactions"
 import { AxiosError } from "axios";
 import { request } from "../axios";
 import { RestApi } from "../rest";
-import { UserModel } from "@/@core/models/user/User";
-import { UserUpdateDto } from "@/@core/schema/User";
+import { UserModel } from "@/@share/models/user/User";
+import { UserUpdateDto } from "@/@share/schema/User";
 
 
 export const UserAPI = {

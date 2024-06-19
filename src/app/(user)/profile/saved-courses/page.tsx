@@ -1,7 +1,7 @@
 "use client";;
-import { CircularLoading } from "../../../../@core/index.ui";
+import { CircularLoading } from "../../../../@share/index.ui";
 import { useUser } from "../../../../@core/index.context";
-import { FontSize, Styles } from "../../../../@core/lib/style";
+import { FontSize, Styles } from "../../../../@share/lib/style";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 
 

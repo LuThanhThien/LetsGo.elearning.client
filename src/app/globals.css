@@ -6,6 +6,11 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --scrollbar-track-color: hsl(195, 8%, 90%);
+  --scrollbar-thumb-color: hsl(180, 1%, 67%);
+  --scrollbar-thumb-hover-color: hsl(180, 1%, 51%);
+  --scrollbar-width: 0.7em;
+  --scrollbar-thumb-radius: 0.35em;
 }
 
 
@@ -31,4 +36,40 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: var(--scrollbar-thumb-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+.vertical-scroll::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.vertical-scroll::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+
+.vertical-scroll::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: var(--scrollbar-thumb-radius);
+}
+
+.vertical-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
 }

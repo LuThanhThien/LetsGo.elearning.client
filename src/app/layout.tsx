@@ -1,4 +1,4 @@
-import { interRegular } from "../@core/lib/font";
+import { interRegular } from "../@share/lib/font";
 import { Metadata } from "next";
 import { SessionContext } from "../@core/index.context";
 import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter'
@@ -6,7 +6,8 @@ import CssBaseline from '@mui/material/CssBaseline'
 import {Toaster} from "sonner";
 import { ThemeProvider } from "@mui/material";
 import theme from "@/theme";
-import React, { Suspense } from "react";
+import React from "react";
+import "./globals.css"
 
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function RootLayout(props : Props) {
                 <ThemeProvider theme={theme}>
                   <React.Fragment>
                     <CssBaseline>
-                      {props.children}
+                        {props.children}
                     </CssBaseline>
                   </React.Fragment>
                 </ThemeProvider>

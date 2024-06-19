@@ -1,4 +1,4 @@
-import { EnumStyle } from "@/@core/lib/style"
+import { EnumStyle } from "@/@share/lib/style"
 
 export enum MediaType {
     IMAGE = "Hình ảnh",

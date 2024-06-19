@@ -1,7 +1,7 @@
 "use client"
 import { Tooltip, TooltipProps, styled, tooltipClasses } from "@mui/material";
 import { MuiColor } from "./MuiColor";
-import { FontSize } from "@/@core/lib/style";
+import { FontSize } from "@/@share/lib/style";
 
 export const InfoTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />

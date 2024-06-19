@@ -25,7 +25,7 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ( {
     // Default button styles
     const disabledProp = processing ? true : disabled;
     const fullWidthProp = fullWidth || true;
-    const startIconProp = processing ? (processIcon || <CircularProgress size={20} color="inherit"/>) : startIcon;
+    const startIconProp = processing ? (processIcon || <CircularProgress size={15} color="inherit"/>) : startIcon;
     const endIconProp = endIcon;
     const variantProp = (processing && processVariant) ? processVariant : variant || "contained";
     const colorProp = (processing && processColor) ? processColor : color || "secondary";

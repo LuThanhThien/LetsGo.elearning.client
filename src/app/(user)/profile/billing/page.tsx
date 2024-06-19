@@ -1,7 +1,7 @@
 "use client";
 import Loading from "@/app/loading";
 import { useUser } from "../../../../@core/context/UserContext";
-import { EnumStyle, FontSize, Styles } from "../../../../@core/lib/style";
+import { EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
 import { Card, CardContent, FormLabel, Grid, Typography, TypographyProps } from "@mui/material";
 import { BadgeCheck, BadgeInfo, BadgeX, CreditCard, ReceiptText } from "lucide-react";
 import {
@@ -10,10 +10,10 @@ import {
   DefaultTableCell, 
   DefaultTableRow,
   DefaultChip,
-} from "../../../../@core/index.ui";
-import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../@core/lib/utils";
-import { PaymentMethod, PaymentStatus } from "../../../../@core/index.models";
-import { MuiColor } from "../../../../@core/ui/display/MuiColor";
+  MuiColor,
+} from "../../../../@share/index.ui";
+import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../@share/lib/utils";
+import { PaymentMethod, PaymentStatus } from "../../../../@share/index.models";
 import { useEffect, useState } from "react";
 
 

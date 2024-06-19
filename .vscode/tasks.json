@@ -2,7 +2,7 @@
    "version": "1.0.1",
    "tasks": [
       {
-         "label": "Dev util process",
+         "label": "Dev Utilities",
          "type": "process",
          "windows": {
             "command": "./dev.bat"
@@ -22,7 +22,7 @@
          }
       },
       {
-         "label": "Launch server",
+         "label": "Run App",
          "type": "npm",
          "script": "dev",
          "group": "none",

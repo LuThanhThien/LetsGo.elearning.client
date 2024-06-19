@@ -1,7 +1,7 @@
 'use client';
 import { createTheme } from '@mui/material/styles';
-import { interRegular } from './@core/lib/font';
-import { FontSize } from './@core/lib/style';
+import { interRegular } from './@share/lib/font';
+import { FontSize } from './@share/lib/style';
 
 const theme = createTheme({
     typography: {

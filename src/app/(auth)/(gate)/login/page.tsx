@@ -5,18 +5,18 @@ import { useForm } from "react-hook-form"
 import { 
    nextLogin
 } from "@/app/api/auth/actions";
-import { LoginSchema, LoginDto } from "../../../../@core/schema/Auth";
+import { LoginSchema, LoginDto } from "../../../../@share/schema/Auth";
 import { NextAuthProviders } from "@/app/api/auth/[...nextauth]/route";
 import { useRouter } from "next/navigation";
 import { Grid, Link, Stack, TextField, Typography } from "@mui/material";
-import { FACEBOOK_COLOR, GOOGLE_COLOR } from "../../../../@core/lib/image";
+import { FACEBOOK_COLOR, GOOGLE_COLOR } from "../../../../@share/lib/image";
 import Image from "next/image";
 import { toast } from "sonner";
 import {
    DefaultButton,
    PasswordTextField
-} from "../../../../@core/index.ui";
-import { HelperText } from "@/@core/index.ui";
+} from "../../../../@share/index.ui";
+import { HelperText } from "@/@share/index.ui";
 
 
 export default function LoginForm() {

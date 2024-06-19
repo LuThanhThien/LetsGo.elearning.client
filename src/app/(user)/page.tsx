@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Loading from "../loading";
-import { TOP_BANNER } from "../../@core/lib/image";
-import { DefaultButton } from "../../@core/index.ui";
+import { TOP_BANNER } from "../../@share/lib/image";
+import { DefaultButton } from "../../@share/index.ui";
 import { CourseCarousel, MainContainer } from "../../components/index.component";
-import { Colors, FontSize } from "../../@core/lib/style";
+import { Colors, FontSize } from "../../@share/lib/style";
 
 
 export default function HomePage() {

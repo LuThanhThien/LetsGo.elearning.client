@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/app/loading";
-import { Colors, EnumStyle, FontSize, Styles } from "../../../../@core/lib/style";
+import { Colors, EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
 import {
   Card,
   CardContent,
@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
 import { useSession } from "next-auth/react"
-import provinces from '../../../../@core/lib/json/provinces.json';
+import provinces from '../../../../@share/lib/json/provinces.json';
 import dayjs from "dayjs";
 import { useEffect } from "react";
 import { changePassword, updateUser } from "@/app/api/user/actions";
@@ -25,8 +25,8 @@ import { useUser } from "../../../../@core/index.context";
 import { 
   ChangePasswordDto, 
   UserUpdateDto 
-} from "../../../../@core/index.schema";
-import { Gender } from "../../../../@core/index.models"
+} from "../../../../@share/index.schema";
+import { Gender } from "../../../../@share/index.models"
 import {
   DefaultButton,
   PhoneTextField,
@@ -35,8 +35,8 @@ import {
   ControlledDatePicker,
   ControlledSelectEnum,
   HelperText,
-} from "../../../../@core/index.ui";
-import { MuiColor } from "@/@core/ui/display/MuiColor";
+  MuiColor,
+} from "../../../../@share/index.ui";
 
 type InputLabelProps = {
   label: string,
@@ -112,13 +112,14 @@ export default function ProfileGeneral() {
     if (clickChangePassword) {
       const passwordPosition = document.getElementById('profile-password-card')?.offsetTop;  
       // Scroll to the target position with smooth behavior
+      console.log("Change password!");
       window.scrollTo({
-        top: passwordPosition as number - 200,
+        top: (passwordPosition as number) - 200,
         behavior: 'smooth'
       });
       handleCloseChangePassword();
     }
-  }, [clickChangePassword])
+  }, [])
 
   if (contextStatus === "loading") return <Loading/>;
     

@@ -1,9 +1,9 @@
-import { EnumStyle } from "@/@core/lib/style"
+import { EnumStyle } from "@/@share/lib/style"
 
 
 export enum DataStatus {
-    ACTIVE = "ACTIVE",
-    INACTIVE = "INACTIVE",
+    ACTIVE = "Hoạt động",
+    INACTIVE = "Vô hiệu hóa",
 }
 
 export const DataStatusStyles : Record<DataStatus, EnumStyle> = {
@@ -12,7 +12,7 @@ export const DataStatusStyles : Record<DataStatus, EnumStyle> = {
 }
 
 
-export type AuditData = {
+export interface AuditData {
     createdDatetime?: Date,
     createdBy?: string | null,
     lastModifiedDatetime?: Date | null,

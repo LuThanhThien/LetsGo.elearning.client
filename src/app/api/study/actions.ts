@@ -8,7 +8,7 @@ import {
     LessonModel,
     ModuleModel,
     CourseModel
- } from "@/@core/index.models";
+ } from "@/@share/index.models";
 
 
 

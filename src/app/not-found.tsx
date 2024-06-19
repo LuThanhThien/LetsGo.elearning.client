@@ -3,9 +3,9 @@ import { Grid, Link, Stack, Typography } from "@mui/material";
 import { ArrowBigLeftDash, Headset } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { Colors } from "../@core/lib/style";
-import { Platform } from "../@core/lib/message";
-import { DefaultButton } from "../@core/index.ui";
+import { Colors } from "../@share/lib/style";
+import { Platform } from "../@share/lib/message";
+import { DefaultButton } from "../@share/index.ui";
 
 export default function NotFound() {
    const router = useRouter();

@@ -1,13 +1,13 @@
 "use client";
 import {createContext, use, useContext, useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
-import { UserUpdateDto, UserUpdateSchema, ChangePasswordDto, ChangePasswordSchema } from "../schema/User";
+import { UserUpdateDto, UserUpdateSchema, ChangePasswordDto, ChangePasswordSchema } from "../../@share/schema/User";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getPaymentList } from "@/app/api/payment/actions";
-import { PaymentModel } from "../models/user/Payment";
-import { EnrollmentModel } from "../models/user/Enrollment";
+import { PaymentModel } from "../../@share/models/user/Payment";
 import { Session } from "next-auth";
+import { Typography } from "@mui/material";
 
 
 export type TypeUserContext = {
@@ -122,13 +122,12 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider value={{ 
-      session,
+      session, 
       contextStatus, setContextStatus,
       profileForm, resetProfileForm,
       clickChangePassword, handleCloseChangePassword, handleOpenChangePassword, 
       changePasswordForm, resetChangePasswordForm,
       payments, setPayments, handleGetPayments,
-
       }}>
       {children}
     </UserContext.Provider>

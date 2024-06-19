@@ -2,10 +2,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { forgotPassword } from "@/app/api/auth/actions";
-import { RegisterSchema, ForgotPasswordDto, ForgorPasswordSchema } from "../../../../@core/schema/Auth";
+import { RegisterSchema, ForgotPasswordDto, ForgorPasswordSchema } from "../../../../@share/schema/Auth";
 import { useRouter } from "next/navigation";
 import { Grid, Link, TextField, Typography } from "@mui/material";
-import { DefaultButton, HelperText } from "../../../../@core/index.ui";
+import { DefaultButton, HelperText } from "../../../../@share/index.ui";
 import { useState } from "react";
 
 

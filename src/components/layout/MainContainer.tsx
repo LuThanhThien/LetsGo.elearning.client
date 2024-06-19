@@ -1,6 +1,6 @@
 "use client"
 import { Box, Grid, Stack, StackProps, styled } from "@mui/material";
-import { GlobalStyle } from "@/@core/lib/style";
+import { GlobalStyle } from "@/@share/lib/style";
 
 export type MainContainerProps = {
     backgroundProps?: StackProps;

@@ -8,8 +8,8 @@ import { Box, Collapse } from "@mui/material";
 import List from "@mui/material/List";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { FontSize } from "../../@core/lib/style";
-import { Role } from "@/@core/index.models";
+import { FontSize } from "../../@share/lib/style";
+import { Role } from "@/@share/index.models";
 
 export interface MenuGroupProps {
     name: string,

@@ -1,4 +1,4 @@
-import { EnrollmentModel } from "@/@core/models/user/Enrollment";
+import { EnrollmentModel } from "@/@share/models/user/Enrollment";
 import { RequestMethod } from "../const";
 import { RestApi } from "../rest";
 import { FetchResponse, StandardError, StandardResponse } from "../transactions";

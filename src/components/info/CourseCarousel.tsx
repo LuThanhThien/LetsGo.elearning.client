@@ -3,8 +3,8 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { Card, CardActionArea, CardContent, CardHeader, CardMedia, Chip, Grid, Stack, Typography } from "@mui/material";
-import { FontSize } from "../../@core/lib/style";
-import { CourseInfo, CourseTagStyles } from "../../@core/index.models";
+import { FontSize } from "../../@share/lib/style";
+import { CourseInfo, CourseTagStyles } from "../../@share/index.models";
 
 
 export type CourseCarouselProps = {

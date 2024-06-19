@@ -1,4 +1,4 @@
-import { CircularLoading } from "../@core/index.ui";
+import { CircularLoading } from "../@share/index.ui";
 
 export default function Loading() {
     return (

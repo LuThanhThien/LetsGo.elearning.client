@@ -1,3 +1,3 @@
-cd ../../../../
-cd ./scripts/
+cd ..
+cd LetsGo.Web/scripts/
 ./main.bat

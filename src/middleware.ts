@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
-import { Role } from './@core/index.models'
+import { Role } from './@share/index.models'
 
 
 export class AuthorityPatterProvider  {

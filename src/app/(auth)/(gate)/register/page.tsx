@@ -3,20 +3,20 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { nextLogin, register } from "@/app/api/auth/actions";
-import {  RegisterSchema, RegisterDto } from "../../../../@core/schema/Auth";
+import {  RegisterSchema, RegisterDto } from "../../../../@share/schema/Auth";
 import { NextAuthProviders } from "@/app/api/auth/[...nextauth]/route";
 import { useRouter } from "next/navigation";
 import { Grid, Link, Stack, TextField, Typography } from "@mui/material";
-import { FACEBOOK_COLOR, GOOGLE_COLOR } from "../../../../@core/lib/image";
+import { FACEBOOK_COLOR, GOOGLE_COLOR } from "../../../../@share/lib/image";
 import Image from "next/image";
 import { toast } from "sonner";
-import { randomChoice } from "../../../../@core/lib/utils";
-import { ListAvatars } from "../../../../@core/lib/avatar";
+import { randomChoice } from "../../../../@share/lib/utils";
+import { ListAvatars } from "../../../../@share/lib/avatar";
 import { 
    DefaultButton, 
    HelperText, 
    PasswordTextField 
-} from "../../../../@core/index.ui";
+} from "../../../../@share/index.ui";
 
 
 

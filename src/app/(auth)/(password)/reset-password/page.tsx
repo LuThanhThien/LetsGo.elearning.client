@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { resetPassword } from "@/app/api/auth/actions";
-import { ResetPasswordOTPDto, ResetPasswordOTPSchema } from "../../../../@core/schema/Auth";
+import { ResetPasswordOTPDto, ResetPasswordOTPSchema } from "../../../../@share/schema/Auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Grid, Typography } from "@mui/material";
 import { toast } from "sonner";
@@ -10,8 +10,8 @@ import {
    DefaultButton, 
    HelperText, 
    PasswordTextField 
-} from "../../../../@core/index.ui";
-import { Colors } from "@/@core/lib/style";
+} from "../../../../@share/index.ui";
+import { Colors } from "@/@share/lib/style";
 import { use, useEffect, useState } from "react";
 
 

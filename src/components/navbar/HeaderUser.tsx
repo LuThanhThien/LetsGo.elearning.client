@@ -1,5 +1,5 @@
 "use client"
-import { LOGO_IMAGE_DARK } from "../../@core/lib/image";
+import { LOGO_IMAGE_DARK } from "../../@share/lib/image";
 import Image from "next/image";
 import { 
   Bell,
@@ -41,19 +41,19 @@ import {
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { FontSize, GlobalStyle, Styles } from "../../@core/lib/style";
-import { Platform } from "../../@core/lib/message";
+import { FontSize, GlobalStyle, Styles } from "../../@share/lib/style";
+import { Platform } from "../../@share/lib/message";
 import { useUser } from "../../@core/index.context";
-import { DefaultButton, DefaultDialog, InfoTooltip } from "../../@core/index.ui";
-import { Global } from "@emotion/react";
+import { DefaultButton, DefaultDialog, InfoTooltip } from "../../@share/index.ui";
 import { createMenu } from "./MenuGroup";
-import { Role } from "@/@core/index.models";
+import { Role } from "@/@share/index.models";
 import Link from "next/link";
 
 
 const userMenu = [
   createMenu("Lịch sử thanh toán", <History size={23}/>, "/profile/billing"),
   createMenu("Cài đặt", <Settings size={23}/>, "/profile/settings"),
+  createMenu("Đổi mật khẩu", <LockKeyholeIcon size={23}/>, "/profile/info"),
   createMenu("Trang quản trị", <Layers size={23}/>, "/dashboard", undefined, [Role.ADMIN, Role.STAFF])
 ]   
 
@@ -144,7 +144,9 @@ export default function HeaderUser() {
                         <DefaultButton 
                           variant="text" 
                           color="inherit" 
-                          onClick={() => { router.push(item.path) }}
+                          onClick={() => { 
+                            router.push(item.path); 
+                          }}
                         >
                           {item.name}
                         </DefaultButton>
@@ -215,12 +217,10 @@ export default function HeaderUser() {
                       <Grid item>
                         <Avatar
                           src={session?.user.avatar}
-                          
                           sx={{
                             ...Styles.Avatar,
                             width: 42, 
                             height: 42, 
-                            
                           }}
                           onClick={handleClickDynacmic}
                           >
@@ -264,14 +264,18 @@ export default function HeaderUser() {
                             </Link>
                           </InfoTooltip>
                           
-                          <Typography variant="h6" fontWeight={"bold"}>{session?.user.fullName}</Typography>
+                          <Typography variant="h6" fontWeight={"bold"} paddingLeft={2} paddingRight={2}>{session?.user.fullName}</Typography>
                         </Stack>
                         <Divider sx={{ my: 0.5 }} />
                         {
                           userMenu.map((item) => {
                             if (item.roles && !item.roles.includes(session?.user.role)) return;
                             return (
-                            <MenuItem  disableRipple onClick={() => { handleCloseDynacmic(); router.push(item.path)}}
+                            <MenuItem  disableRipple onClick={() => { 
+                              handleCloseDynacmic(); 
+                              if (item.path === "/profile/info") handleOpenChangePassword();
+                              router.push(item.path)
+                            }}
                             sx={{ paddingTop: 1, paddingBottom: 1}}>
                               <Stack direction={"row"} spacing={2} alignItems={"center"} alignContent={"center"}>
                                 {item.icon}

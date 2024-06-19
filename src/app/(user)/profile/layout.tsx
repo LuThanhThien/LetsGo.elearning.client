@@ -14,14 +14,14 @@ import { Heart, History, Layers, Settings, SquareUser } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { MainContainer, MenuGroup, createMenu } from "../../../components/index.component";
-import { Platform } from "../../../@core/lib/message";
-import { Styles } from "../../../@core/lib/style";
+import { Platform } from "../../../@share/lib/message";
+import { Styles } from "../../../@share/lib/style";
 import { useUser } from "../../../@core/index.context";
 import {
     DefaultButton,
     DefaultDialog,
-  } from "../../../@core/index.ui";
-import { Role } from "@/@core/index.models";
+  } from "../../../@share/index.ui";
+import { Role } from "@/@share/index.models";
 
 
 interface Props {
@@ -40,7 +40,7 @@ export default function ProfileLayout(props : Props) {
         return 300;
     }
 
-    const { contextStatus } = useUser();
+    const { contextStatus, } = useUser();
     
 
     const userMenu = [

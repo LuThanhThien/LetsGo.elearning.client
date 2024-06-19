@@ -1,7 +1,7 @@
 import { request } from "@/app/api/axios";
 import { FetchResponse, StandardError, StandardResponse } from "@/app/api/transactions";
-import { LoginDto, RegisterDto, ResetPasswordOTPDto } from "../../../@core/index.schema";
-import { AuthResponse, OTPEntryModel, UserModel } from "../../../@core/index.models";
+import { LoginDto, RegisterDto, ResetPasswordOTPDto } from "../../../@share/index.schema";
+import { AuthResponse, OTPEntryModel, UserModel } from "../../../@share/index.models";
 import { signIn } from "next-auth/react";
 import { NextAuthProviders } from "@/app/api/auth/[...nextauth]/route";
 import { AxiosError, HttpStatusCode } from "axios";
