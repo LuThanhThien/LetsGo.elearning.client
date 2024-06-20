@@ -7,7 +7,6 @@ import { KeyboardArrowDown, KeyboardArrowRight } from "@mui/icons-material";
 import { Box, Collapse } from "@mui/material";
 import List from "@mui/material/List";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { FontSize } from "../../@share/lib/style";
 import { Role } from "@/@share/index.models";
 
@@ -39,7 +38,7 @@ export function MenuGroup(props: { item: MenuGroupProps, key: number }) {
 		setOpen(!open);
 	};
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (item.children) {
 			item.children.forEach((child: MenuGroupProps) => {
 				if (path === child.path) {

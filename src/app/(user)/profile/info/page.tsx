@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Loading from "@/app/loading";
 import { Colors, EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
 import {
@@ -15,13 +15,11 @@ import {
   TypographyProps,
 } from "@mui/material";
 import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
-import { useSession } from "next-auth/react"
 import provinces from '../../../../@share/lib/json/provinces.json';
 import dayjs from "dayjs";
 import { useEffect } from "react";
 import { changePassword, updateUser } from "@/app/api/user/actions";
 import { toast } from "sonner";
-import { useUser } from "../../../../@core/index.context";
 import { 
   ChangePasswordDto, 
   UserUpdateDto 
@@ -37,6 +35,7 @@ import {
   HelperText,
   MuiColor,
 } from "../../../../@share/index.ui";
+import { useUser } from "@/@core/index.provider";
 
 type InputLabelProps = {
   label: string,
@@ -62,7 +61,7 @@ const AccountType = (numberModules: number) : EnumStyle => {
 
 export default function ProfileGeneral() {
   
-  const {data: session, status, update} = useSession();
+  const { session, update } = useUser();
   const { 
     contextStatus,
     profileForm, resetProfileForm,
@@ -296,12 +295,13 @@ export default function ProfileGeneral() {
                 </Grid>
                 <Grid container spacing={2} direction={"row"} justifyContent={"flex-end"}>
                     <Grid item xs={2}>
-                      <DefaultButton 
-                        processing={profileForm.formState.isSubmitting}
-                        disabled={!profileForm.formState.isDirty} onClick={profileForm.handleSubmit(handleUpdateProfile, onInvalid)}>Lưu thay đổi</DefaultButton>
+                      <DefaultButton disabled={!profileForm.formState.isDirty || profileForm.formState.isSubmitting} onClick={() => resetProfileForm()} variant="outlined" color="error">Hoàn tác</DefaultButton>
                     </Grid>
                     <Grid item xs={2}>
-                      <DefaultButton disabled={!profileForm.formState.isDirty || profileForm.formState.isSubmitting} onClick={() => resetProfileForm()} color="error">Hoàn tác</DefaultButton>
+                      <DefaultButton 
+                        color="info"
+                        processing={profileForm.formState.isSubmitting}
+                        disabled={!profileForm.formState.isDirty} onClick={profileForm.handleSubmit(handleUpdateProfile, onInvalid)}>Lưu thay đổi</DefaultButton>
                     </Grid>
                 </Grid>
               </Stack>

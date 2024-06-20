@@ -1,3 +1,4 @@
+import { string } from "zod";
 import { API_PREFIX, HOST_URL, RequestMethod } from "./const";
 
 export class RestApi {
@@ -15,11 +16,26 @@ export class RestApi {
 
 
    static getPathVariable(path: string, data: any) : string {
-      const uriList = path.split("?");
-      if (uriList.length <= 1) return path;
-      let query = uriList[0] + "?";
-      const queryList = uriList[1].split("&");
+      const urlList = path.split("?");
+      if (urlList.length <= 1) return path;
+      let query = urlList[0] + "?";
+      const queryList = urlList[1].split("&");
       for (let j = 0; j < queryList.length; j++) {
+         if (queryList[j].startsWith("...")) {
+            const key = queryList[j].substring(3);
+            const value = data[key] || "";
+            delete data[key];
+            console.log("value type", );
+            if (value === "") continue;
+            if (value instanceof Array) {
+               for (let i = 0; i < value.length; i++) {
+                  query += `${key}=${value[i]}&`;
+               }
+            } else if (typeof value === 'string') {
+               query += `${value}&`;
+            }
+            continue;
+         }
          if (!queryList[j].startsWith(":")) continue;
          let key = queryList[j].substring(1);
          const value = data[key] || "";
@@ -28,7 +44,7 @@ export class RestApi {
       }
       return query;
    }
-
+   
    static createUrl(path: string, data?: any) : string {
       if (!data) { 
          console.log("URL: " + `${HOST_URL}/${API_PREFIX}${path}`); 
@@ -53,5 +69,17 @@ export class RestApi {
       }
       console.log("URL: " + `${HOST_URL}/${API_PREFIX}/${list.join("/")}`);
       return `${HOST_URL}/${API_PREFIX}/${list.join("/")}`;
+   }
+
+   public infoMessage(){
+      return `${this.method} ${this.url} request sent`;
+   }
+
+   public errorMessage(){
+      return `${this.method} ${this.url} request failed`;
+   }
+
+   public logMessage(){
+      return `${this.method} ${this.url} response received`;
    }
 }

@@ -5,6 +5,7 @@ import { request } from "../axios";
 import { PaymentModel } from "@/@share/models/user/Payment";
 import { UserAPI } from "../user/actions";
 import { RestApi } from "../rest";
+import { JsonValue } from "@/@share/index.models";
 
 
 export const PaymentAPI = {
@@ -12,7 +13,8 @@ export const PaymentAPI = {
    BY_ID: RestApi.create(RequestMethod.GET, '/payment/:id'),
    METHODS: RestApi.create(RequestMethod.GET, '/payment/methods'),
    CHECKOUT: RestApi.create(RequestMethod.PATCH, '/payment/:id/checkout'),
-   WEBHOOK: RestApi.create(RequestMethod.GET, '/payment/:id/webhook'),
+   CALLBACK: RestApi.create(RequestMethod.GET, '/payment/:id/callback?...params'),
+   VNP_IPN: RestApi.create(RequestMethod.POST, '/payment/vnp_ipn?...params'),
 }
 
 
@@ -23,10 +25,10 @@ export async function getPaymentList() : Promise<FetchResponse<PaymentModel>> {
           url: PaymentAPI.PAYMENT.url,
           data: null
        })
-       return StandardResponse.standlize(res).log("Get payment list response");
+       return StandardResponse.standlize(res).log(PaymentAPI.PAYMENT.infoMessage());
     } catch (err) {
-       console.error("Get payment list error: ", err);   
-       return StandardError.standlize(err as AxiosError).log("Get payment list error");
+       console.error(PaymentAPI.PAYMENT.errorMessage(), err);   
+       return StandardError.standlize(err as AxiosError).log(PaymentAPI.PAYMENT.errorMessage());
     }
 }
 
@@ -58,18 +60,32 @@ export async function checkoutPayment(id: string) : Promise<FetchResponse<Paymen
     }
 }
 
-export async function getPaymentWebhook(id: string) : Promise<FetchResponse<PaymentModel>> {
+export async function callbackPayment(id: string, params: JsonValue | string) : Promise<FetchResponse<PaymentModel>> {
     try {
        let res = await request({
-          method: PaymentAPI.WEBHOOK.method,
-          url: PaymentAPI.WEBHOOK.url,
-          data: {id: id}
+          method: PaymentAPI.CALLBACK.method,
+          url: PaymentAPI.CALLBACK.url,
+          data: {id: id, params: params}
        })
-       return StandardResponse.standlize(res).log("Get payment webhook response");
+       return StandardResponse.standlize(res).log("Get payment callback response");
     } catch (err) {
        console.error("Get payment webhook error: ", err);   
-       return StandardError.standlize(err as AxiosError).log("Get payment webhook error");
+       return StandardError.standlize(err as AxiosError).log("Get payment callback error");
     }
+}
+
+export async function callbackVNPayIpn(params: JsonValue | string) : Promise<FetchResponse<PaymentModel>> {
+   try {
+      let res = await request({
+         method: PaymentAPI.VNP_IPN.method,
+         url: PaymentAPI.VNP_IPN.url,
+         data: {params: params}
+      })
+      return StandardResponse.standlize(res).log("Get payment callback VNPay IPN response");
+   } catch (err) {
+      console.error("Get payment webhook error: ", err);   
+      return StandardError.standlize(err as AxiosError).log("Get payment callback VNPay IPN error");
+   }
 }
 
 export async function getPaymentById(id: string) : Promise<FetchResponse<PaymentModel>> {

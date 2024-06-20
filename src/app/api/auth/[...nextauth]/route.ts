@@ -1,7 +1,7 @@
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import { ACCESS_TOKEN_KEY, AuthAPI, getUserByUsername } from "../actions";
+import { AuthAPI, getUserByUsername } from "../actions";
 import NextAuth from "next-auth";
 import { AuthOptions } from "next-auth";
 import { RestApi } from "../../rest";
@@ -91,7 +91,7 @@ const authOptions : AuthOptions = {
     callbacks: {
         async signIn({user, account, profile, credentials}) {
             if (account?.provider === NextAuthProviders.CREDENTIALS) {
-                console.log("[NextAuth] signIn - Find by credentials: " + credentials)
+                console.log("[NextAuth] signIn - Find by credentials: ", credentials)
                 const existingUser = await getUserByUsername(credentials?.username as string);
                 return Boolean(existingUser.data);
             }

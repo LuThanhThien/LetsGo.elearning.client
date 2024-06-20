@@ -117,6 +117,7 @@ export async function getUserByUsername(username: string) : Promise<FetchRespons
       })
       return StandardResponse.standlize(res).log("Get user by username response");
    } catch (err) {
+      console.error(err)
       return StandardError.standlize(err as AxiosError).log("Get user by username error");
    }
 }

@@ -116,7 +116,6 @@ export const CourseCarousel = (({ courses, cardPerSlide = 4, height = 460 } : Co
                 const end = start + numCardPerSlide > maxLen ? maxLen : start + numCardPerSlide;
                 if (start >= maxLen) return;
                 const numCard = end - start;
-                console.log("start: " + start + " end: " + end)
                 return (
                     <Grid container key={`slide-${slideIndex}`}
                         spacing={2} paddingTop={1}

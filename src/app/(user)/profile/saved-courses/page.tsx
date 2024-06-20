@@ -1,6 +1,6 @@
 "use client";;
+import { useUser } from "@/@core/index.provider";
 import { CircularLoading } from "../../../../@share/index.ui";
-import { useUser } from "../../../../@core/index.context";
 import { FontSize, Styles } from "../../../../@share/lib/style";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 
@@ -45,6 +45,5 @@ export default function SavedCoursePage() {
         </Grid>
       </Grid>
     </Grid>
-   
   )
 } 

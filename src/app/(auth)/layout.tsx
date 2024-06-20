@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Stack } from "@mui/material";
 import { Colors } from "../../@share/lib/style";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Loading from "../loading";
@@ -11,21 +11,16 @@ import { ArrowBigLeftDash, LogOutIcon } from "lucide-react";
 import {
     DefaultButton,
 } from "../../@share/index.ui";
-
+import { useUser } from '@/@core/index.provider';
 
 const AuthLayout = ({ children: children }: { children: React.ReactNode }) => { 
     
-    const {data: session, status} = useSession();
+    const {
+        session, contextStatus
+    } = useUser();
     const router = useRouter();
 
-    useEffect(() => {
-        if (session) {
-           console.log("User is logged in.")
-           console.log(session)
-        }
-     }, [session])
-
-    if (status === "loading") {
+    if (contextStatus === "loading") {
         return (
             <Loading/>
         )

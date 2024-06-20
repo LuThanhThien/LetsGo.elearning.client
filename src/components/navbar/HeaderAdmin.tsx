@@ -27,14 +27,15 @@ import {
 } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { FontSize } from "../../@share/lib/style";
 import { DefaultButton } from "../../@share/index.ui";
+import { useUser } from "@/@core/index.provider";
 
 
 
 export default function HeaderAdmin() {
-  const { data: session, status } = useSession();
+  const { session, contextStatus } = useUser();
   const router = useRouter();
 
 
@@ -130,7 +131,7 @@ export default function HeaderAdmin() {
 
   const DynamicContent = () => {
 
-    if (status === "loading") {
+    if (contextStatus === "loading") {
       return (
         <Grid container direction={"row-reverse"} paddingRight={2} paddingLeft={2} spacing={2} alignContent={"center"} alignItems={"flex-end"}>
           <Grid item xs={3}>

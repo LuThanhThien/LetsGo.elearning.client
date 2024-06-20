@@ -1,6 +1,5 @@
 "use client";
 import Loading from "@/app/loading";
-import { useUser } from "../../../../@core/context/UserContext";
 import { EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
 import { Card, CardContent, FormLabel, Grid, Typography, TypographyProps } from "@mui/material";
 import { BadgeCheck, BadgeInfo, BadgeX, CreditCard, ReceiptText } from "lucide-react";
@@ -15,6 +14,7 @@ import {
 import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../@share/lib/utils";
 import { PaymentMethod, PaymentStatus } from "../../../../@share/index.models";
 import { useEffect, useState } from "react";
+import { useUser } from "@/@core/index.provider";
 
 
 export const PaymentStatusStyles: Record<PaymentStatus, EnumStyle> = {
@@ -102,7 +102,7 @@ export default function BillingPage() {
                       </Grid>
                       <Grid item>
                       <Typography variant="caption">Tổng số học phần</Typography>
-                        <Typography fontSize={FontSize.extra} fontWeight={"bold"}>{session.user?.numberEnrollmentModules}</Typography>
+                        <Typography fontSize={FontSize.extra} fontWeight={"bold"}>{session?.user?.numberEnrollmentModules}</Typography>
                       </Grid>
                     </Grid>
                   </Grid>

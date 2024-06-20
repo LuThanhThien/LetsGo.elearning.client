@@ -22,14 +22,12 @@ export enum PaymentStatus {
 
 
 export enum PaymentMethod {
-    CREDIT_CARD = "Thẻ tín dụng",
-    BANK_TRANSFER = "Thẻ ngân hàng",
+    VNPay = "VNPay",
     MOMO = "Momo",
 }
 
 export const PaymentMethodStyles: Record<PaymentMethod, EnumStyle> = {
-    [PaymentMethod.CREDIT_CARD]: { color: "primary" },
-    [PaymentMethod.BANK_TRANSFER]: { color: "info" },
+    [PaymentMethod.VNPay]: { color: "info" },
     [PaymentMethod.MOMO]: { color: "error" },
 }
 

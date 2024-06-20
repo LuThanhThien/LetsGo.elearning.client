@@ -1,9 +1,7 @@
-"use client"
+"use client";
+import { useUser } from "@/@core/index.provider";
 import Loading from "@/app/loading";
-import { Avatar, Box, Card, CardContent, Drawer, Grid, Skeleton, Stack, Typography } from "@mui/material";
-import { useSession } from "next-auth/react"
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { Grid } from "@mui/material";
 
 interface Props {
     /**
@@ -15,9 +13,9 @@ interface Props {
 
 export default function ProfileSettings(props: Props) {
 
-    const {data: session, status} = useSession();
+    const { session, contextStatus } = useUser();
 
-    if (status === "loading") return <Loading/>;
+    if (contextStatus === "loading") return <Loading/>;
 
     return (
     <Grid container direction="row" spacing={2} padding={10}>

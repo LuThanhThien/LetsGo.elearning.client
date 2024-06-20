@@ -1,9 +1,7 @@
-"use client"
-
+"use client";
 import { SquareUserRound, TelescopeIcon, Zap } from "lucide-react";
 import { CurrentCourses, MainCourses } from "../../seeds/course";
 import React from "react";
-import { useSession } from "next-auth/react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import Loading from "../loading";
@@ -11,11 +9,14 @@ import { TOP_BANNER } from "../../@share/lib/image";
 import { DefaultButton } from "../../@share/index.ui";
 import { CourseCarousel, MainContainer } from "../../components/index.component";
 import { Colors, FontSize } from "../../@share/lib/style";
+import { useUser } from "@/@core/index.provider";
 
 
 export default function HomePage() {
   const [explore, setExplore] = React.useState(false);
-  const {data: session, status } = useSession();
+  const {
+    session, contextStatus
+  } = useUser();
 
   const currentCourseId = 'current-course'
   const upcommingCourseId = 'upcomming-course'
@@ -45,7 +46,7 @@ export default function HomePage() {
 
  
 
-  if (status === "loading") return <Loading/>
+  if (contextStatus === "loading") return <Loading/>
 
   return (
       <MainContainer>

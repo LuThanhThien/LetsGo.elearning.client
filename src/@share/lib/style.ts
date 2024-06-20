@@ -62,4 +62,5 @@ export interface EnumStyle {
     backgroundColor?: string;
     borderColor?: string;
     icon?: React.ReactElement;
+    img?: string;
 }

@@ -1,19 +1,18 @@
-"use client";
-import {createContext, use, useContext, useEffect, useState} from "react";
-import {useSession} from "next-auth/react";
+"use client";;
+import { createContext, useContext, useEffect, useState } from "react";
 import { UserUpdateDto, UserUpdateSchema, ChangePasswordDto, ChangePasswordSchema } from "../../@share/schema/User";
 import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getPaymentList } from "@/app/api/payment/actions";
 import { PaymentModel } from "../../@share/models/user/Payment";
 import { Session } from "next-auth";
-import { Typography } from "@mui/material";
-
+import { useSession } from "next-auth/react";
 
 export type TypeUserContext = {
-  session: Session,
+  session: Session | null,
+  update: (data?: any) => Promise<Session | null>,
   contextStatus: "loading" | "unauthenticated" | "authenticated", 
-  setContextStatus: (status: string) => void,
+  setContextStatus: (status: "loading" | "unauthenticated" | "authenticated") => void,
   profileForm: UseFormReturn<UserUpdateDto>,
   resetProfileForm: (data?: UserUpdateDto | undefined | null) => void,
   changePasswordForm: UseFormReturn<ChangePasswordDto>,
@@ -22,24 +21,23 @@ export type TypeUserContext = {
   handleOpenChangePassword: () => void,
   handleCloseChangePassword: () => void,
   payments: PaymentModel[],
-  setPayments: (payments: PaymentModel) => void,
+  setPayments: (payments: PaymentModel[]) => void,
   handleGetPayments: () => void,
 }
 
 //@ts-ignore
-const UserContext = createContext();
+const UserContext = createContext<TypeUserContext | undefined>(undefined);
 
 //@ts-ignore
 export function UserProvider({ children }) {
-  const {data: session, status } = useSession();
+  const {data: session, status, update } = useSession();
   const [clickChangePassword, setClickChangePassword] = useState<boolean>(false);
-  const [contextStatus, setContextStatus] = useState<string>("loading");
+  const [contextStatus, setContextStatus] = useState<"loading" | "unauthenticated" | "authenticated">("loading");
   const [payments, setPayments] = useState<PaymentModel[]>([]);
 
   const profileForm = useForm<UserUpdateDto>({
     resolver: zodResolver(UserUpdateSchema),
   });
-
 
   const resetProfileForm = async (data?: UserUpdateDto | undefined | null) => {
     if (data) {
@@ -111,6 +109,7 @@ export function UserProvider({ children }) {
     }
   }, [session]);
 
+
   useEffect(() => {
     // loading if status is loading and form is not submitted (since form is submitted, session might be loading status making ui experience bad)
     if (status === "loading" && !profileForm.formState.isSubmitted) {
@@ -122,7 +121,7 @@ export function UserProvider({ children }) {
 
   return (
     <UserContext.Provider value={{ 
-      session, 
+      session, update,
       contextStatus, setContextStatus,
       profileForm, resetProfileForm,
       clickChangePassword, handleCloseChangePassword, handleOpenChangePassword, 

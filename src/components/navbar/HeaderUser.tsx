@@ -1,26 +1,18 @@
-"use client"
+"use client";
 import { LOGO_IMAGE_DARK } from "../../@share/lib/image";
 import Image from "next/image";
-import { 
+import {
   Bell,
-  BellIcon,
   BookMarkedIcon,
   Bookmark,
   BusFront,
-  CircleUserIcon,
-  DraftingCompass, 
-  GraduationCap, 
-  Heart, 
-  History, 
-  Layers, 
-  LockKeyholeIcon, 
-  LogIn, 
-  LogOutIcon, 
-  Pi, 
-  Settings, 
-  SquareFunction, 
-  SquareUser, 
-  Zap
+  History,
+  Layers,
+  LockKeyholeIcon,
+  LogIn,
+  LogOutIcon,
+  Settings,
+  Zap,
 } from "lucide-react";
 import React, { useState } from "react";
 import { 
@@ -38,16 +30,15 @@ import {
   Toolbar, 
   Typography,
 } from "@mui/material";
-import { KeyboardArrowDown } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { FontSize, GlobalStyle, Styles } from "../../@share/lib/style";
 import { Platform } from "../../@share/lib/message";
-import { useUser } from "../../@core/index.context";
 import { DefaultButton, DefaultDialog, InfoTooltip } from "../../@share/index.ui";
 import { createMenu } from "./MenuGroup";
 import { Role } from "@/@share/index.models";
 import Link from "next/link";
+import { useUser } from "@/@core/index.provider";
 
 
 const userMenu = [
@@ -55,21 +46,20 @@ const userMenu = [
   createMenu("Cài đặt", <Settings size={23}/>, "/profile/settings"),
   createMenu("Đổi mật khẩu", <LockKeyholeIcon size={23}/>, "/profile/info"),
   createMenu("Trang quản trị", <Layers size={23}/>, "/dashboard", undefined, [Role.ADMIN, Role.STAFF])
-]   
+]
 
 const headerMenu = [
   createMenu("Khoá học", <Bookmark size={23}/>, "/courses"),
   createMenu("Lộ trình", <BusFront size={23}/>, "/roadmaps"),
   createMenu("Về chúng tôi", <Layers size={23}/>, "/about")
-]   
+]
 
 
 export default function HeaderUser() {
-  const { data: session, status } = useSession();
+  const {
+    session, handleOpenChangePassword, contextStatus
+  } = useUser()
   const router = useRouter();
-  const { 
-    handleOpenChangePassword,
-  } = useUser();
 
   // Dynamic content
   const [anchorElDynamic, setAnchorElDynamic] = useState<null | HTMLElement>(null);
@@ -86,8 +76,6 @@ export default function HeaderUser() {
 
   // Signout dialog
   const [openSignout, setOpenSignout] = React.useState(false);
-
-  const { contextStatus } = useUser();
 
   const handleClickOpenSignout = () => {
     setOpenSignout(true);
@@ -139,9 +127,10 @@ export default function HeaderUser() {
                 :
                 <Stack direction={"row"} spacing={4} alignContent={"center"} alignItems={"center"}>
                   {
-                    headerMenu.map((item) => {
+                    headerMenu.map((item, index) => {
                       return (
                         <DefaultButton 
+                          key={`header-menu-${index}`}
                           variant="text" 
                           color="inherit" 
                           onClick={() => { 
@@ -268,10 +257,10 @@ export default function HeaderUser() {
                         </Stack>
                         <Divider sx={{ my: 0.5 }} />
                         {
-                          userMenu.map((item) => {
+                          userMenu.map((item, index) => {
                             if (item.roles && !item.roles.includes(session?.user.role)) return;
                             return (
-                            <MenuItem  disableRipple onClick={() => { 
+                            <MenuItem key={`user-item-${index}`} disableRipple onClick={() => { 
                               handleCloseDynacmic(); 
                               if (item.path === "/profile/info") handleOpenChangePassword();
                               router.push(item.path)

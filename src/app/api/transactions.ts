@@ -43,11 +43,11 @@ export class StandardResponse<T> implements StandardResponseType<T> {
       this.appVersion = process.env.APP_VERSION as string;
    }
  
-   static standlize<T>(response: AxiosResponse<T, any>) : StandardResponse<T> {
+   static standlize<T>(response: AxiosResponse<T, any> | any) : StandardResponse<T> {
       return new StandardResponse<T>(
          response.status,
          response.headers.date as string,
-         response.data,
+         response.data || response.json() as T,
          response.headers["app-version"] as string,
          response.config.url,
       );

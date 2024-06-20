@@ -19,7 +19,6 @@ export const MuiColor = ({
     if (noTransparency) transparency = 0
     transparency = 1 - Math.max(0, parseFloat(transparency.toString().replace('%', '')) / 100)
     let hexTransparency = Math.round(transparency * 255).toString(16).padStart(2, '0').toUpperCase();
-    console.log("hexTransparency: ", hexTransparency)
     return {
         primary: `${theme.palette.primary.main}${hexTransparency}`,
         secondary: `${theme.palette.secondary.main}${hexTransparency}`,

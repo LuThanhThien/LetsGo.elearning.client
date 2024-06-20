@@ -1,13 +1,11 @@
 import { interRegular } from "../@share/lib/font";
 import { Metadata } from "next";
-import { SessionContext } from "../@core/index.context";
-import {AppRouterCacheProvider} from '@mui/material-nextjs/v14-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
 import {Toaster} from "sonner";
-import { ThemeProvider } from "@mui/material";
-import theme from "@/theme";
+
 import React from "react";
 import "./globals.css"
+import AppProviders from "./providers";
 
 
 export const metadata: Metadata = {
@@ -27,22 +25,18 @@ export default function RootLayout(props : Props) {
   return (
     <html lang="en">
       <body className={interRegular.className}>
-        <SessionContext>
-              <AppRouterCacheProvider>
-                <ThemeProvider theme={theme}>
-                  <React.Fragment>
-                    <CssBaseline>
-                        {props.children}
-                    </CssBaseline>
-                  </React.Fragment>
-                </ThemeProvider>
-              </AppRouterCacheProvider>
-              <Toaster
-                  closeButton
-                  richColors
-                  position="bottom-right"
-              />
-        </SessionContext>
+        <AppProviders>
+          <React.Fragment>
+            <CssBaseline>
+                {props.children}
+            </CssBaseline>
+          </React.Fragment>
+          <Toaster
+              closeButton
+              richColors
+              position="bottom-right"
+          />
+        </AppProviders>
       </body>
     </html>
   );

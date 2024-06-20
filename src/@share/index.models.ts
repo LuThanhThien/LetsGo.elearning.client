@@ -5,6 +5,7 @@ export * from "./models/global/AuditData";
 export * from "./models/global/PriceInfo";
 export * from "./models/global/Setting";
 export * from "./models/global/Media";
+export * from "./models/global/JsonValue";
 
 export * from "./models/study/Asset";
 export * from "./models/study/Choice";

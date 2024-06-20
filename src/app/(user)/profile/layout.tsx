@@ -16,12 +16,12 @@ import { useState } from "react";
 import { MainContainer, MenuGroup, createMenu } from "../../../components/index.component";
 import { Platform } from "../../../@share/lib/message";
 import { Styles } from "../../../@share/lib/style";
-import { useUser } from "../../../@core/index.context";
 import {
     DefaultButton,
     DefaultDialog,
   } from "../../../@share/index.ui";
 import { Role } from "@/@share/index.models";
+import { useUser } from "@/@core/index.provider";
 
 
 interface Props {
@@ -31,17 +31,14 @@ interface Props {
 
 
 export default function ProfileLayout(props : Props) {
-    const { data: session, status, update } = useSession();
+    const { session, contextStatus } = useUser()
     const drawerWidth = 320;
     function maxWidthName (name: string) {
         if (name.length > 10) {
             return 240;
         }
         return 300;
-    }
-
-    const { contextStatus, } = useUser();
-    
+    }    
 
     const userMenu = [
         createMenu("Thông tin cá nhân", <SquareUser size={23}/>, "/profile/info"),
