@@ -11,7 +11,7 @@ import {
     Typography,
 } from "@mui/material";
 import { Heart, History, Layers, Settings, SquareUser } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { MainContainer, MenuGroup, createMenu } from "../../../components/index.component";
 import { Platform } from "../../../@share/lib/message";
