@@ -18,6 +18,7 @@ import { Platform } from "../../../@share/lib/message";
 import { Styles } from "../../../@share/lib/style";
 import {
     DefaultButton,
+    DefaultCard,
     DefaultDialog,
   } from "../../../@share/index.ui";
 import { Role } from "@/@share/index.models";
@@ -43,7 +44,7 @@ export default function ProfileLayout(props : Props) {
     const userMenu = [
         createMenu("Thông tin cá nhân", <SquareUser size={23}/>, "/profile/info"),
         createMenu("Lịch sử thanh toán", <History size={23}/>, "/profile/billing"),
-        createMenu("Khoá học đã lưu", <Heart size={23}/>, "/profile/saved-courses"),
+        // createMenu("Khoá học đã lưu", <Heart size={23}/>, "/profile/saved-courses"),
         createMenu("Trang quản trị", <Layers size={23}/>, "/dashboard", undefined, [Role.ADMIN, Role.STAFF]),
         createMenu("Cài đặt", <Settings size={23}/>, "/profile/settings"),
     ]   
@@ -76,8 +77,7 @@ export default function ProfileLayout(props : Props) {
             paddingRight: 2,
         
         }}>
-            <Card sx={{
-                ...Styles.Card,
+            <DefaultCard sx={{
                 position: 'sticky',
                 top: 10,
             }}>
@@ -151,7 +151,7 @@ export default function ProfileLayout(props : Props) {
                         }
                     </Grid>
                 </CardContent>
-            </Card>
+            </DefaultCard>
         </Stack>
         {props.children}
     <DefaultDialog

@@ -12,11 +12,12 @@ export class AuthorityPatterProvider  {
        this.roles = roles;
     }
 }
- 
- export const AuthorityPatterns = [
+
+export const AuthorityPatterns = [
     new AuthorityPatterProvider("/dashboard/admin/*", [Role.ADMIN]),
     new AuthorityPatterProvider("/dashboard/*", [Role.ADMIN, Role.STAFF]),
-    new AuthorityPatterProvider("/user/*", [Role.USER, Role.ADMIN, Role.STAFF]),
+    new AuthorityPatterProvider("/profile/*", [Role.USER, Role.ADMIN, Role.STAFF]),
+    new AuthorityPatterProvider("/payment/*", [Role.USER, Role.ADMIN, Role.STAFF]),
 ]
 
 export async function middleware(req: NextRequest) {

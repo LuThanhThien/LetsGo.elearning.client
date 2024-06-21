@@ -1,4 +1,5 @@
 "use client"
+import theme from "@/theme";
 import { Colors, FontSize } from "../../lib/style";
 import { Button, ButtonProps, CircularProgress, Typography, TypographyProps } from "@mui/material"
 import React from "react";
@@ -9,6 +10,8 @@ export interface DefaultButtonProps extends ButtonProps {
     processIcon?: React.ReactNode,
     noPadding?: boolean,
     maxWidth?: string | number,
+    fontSize?: string | number,
+    fontWeight?: string | number,
     processVariant?: "contained" | "outlined" | "text",
     processColor?: "primary" | "secondary" | "error" | "success" | "warning" | "info",
     typographyProps?: TypographyProps
@@ -16,7 +19,27 @@ export interface DefaultButtonProps extends ButtonProps {
 
 
 export const DefaultButton: React.FC<DefaultButtonProps> = ( {
-    disabled, children, fullWidth, maxWidth, variant, color, startIcon, endIcon, className, sx, typographyProps, noPadding = false, processing = false, processingText, processIcon, processVariant, processColor, ...others} )  => {
+    disabled, 
+    children, 
+    fullWidth, 
+    maxWidth, 
+    variant, 
+    color, 
+    startIcon, 
+    endIcon, 
+    className, 
+    sx, 
+    fontSize,
+    fontWeight,
+    typographyProps, 
+    noPadding = false, 
+    processing = false, 
+    processingText, 
+    processIcon, 
+    processVariant, 
+    processColor, 
+    ...others
+} )  => {
         
     const isText = variant === "text";
     const isOutlined = variant === "outlined";
@@ -45,8 +68,8 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ( {
         right: noPadding ? 0 : (isText ? "0px" : endIconProp ? "2px" : "2px"),
         top: noPadding ? 0 : "2px",
         bottom: noPadding ? 0 : "2px",
-        fontSize: FontSize.semium
     }
+    const defaultTypoFontSize = isText ? FontSize.semium : FontSize.medium;
 
     return (
         <Button 
@@ -72,14 +95,14 @@ export const DefaultButton: React.FC<DefaultButtonProps> = ( {
             }}
             {...others}
         >
-            <Typography 
+            <Typography     
                 variant={typographyProps?.variant || "button"} 
                 paddingLeft={typographyProps?.paddingLeft || typographyChildPadding.left} 
                 paddingRight={typographyProps?.paddingRight || typographyChildPadding.right} 
                 paddingTop={typographyProps?.paddingTop || typographyChildPadding.top} 
                 paddingBottom={typographyProps?.paddingBottom || typographyChildPadding.bottom} 
-                fontSize={typographyProps?.fontSize || typographyChildPadding.fontSize}
-                fontWeight={typographyProps?.fontWeight || "bold"}
+                fontSize={fontSize || typographyProps?.fontSize || defaultTypoFontSize}
+                fontWeight={fontWeight || typographyProps?.fontWeight || "bold"}
                 {...typographyProps}
                 >
                 { processing  ?  (processingText || "Đang xử lý") : children }

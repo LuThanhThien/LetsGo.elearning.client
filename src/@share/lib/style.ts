@@ -15,6 +15,7 @@ export const Colors = {
     tetiaryDarken: "#2f5683",
     tetiaryLighten: "#4793ea",
     shadow: "#f1f2f47e",
+    shadowLighten: "#f1f2f4",
     shadowDarken: "#d1d1d18e",
     // shadowDarken: "#b4b0b0",
     gray: "#787878",

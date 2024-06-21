@@ -1,18 +1,16 @@
 "use client";
 import Loading from "@/app/loading";
-import { Colors, EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
+import { FontSize, Styles } from "../../../../@share/lib/style";
 import {
   Card,
   CardContent,
   Chip,
   FormControl,
-  FormLabel,
   Grid,
   InputAdornment,
   Stack,
   TextField,
   Typography,
-  TypographyProps,
 } from "@mui/material";
 import { Cake, CircleUserRound, Key, Mail, MapPin, PackageCheck, Phone, RectangleEllipsis, School, Shapes } from "lucide-react";
 import provinces from '../../../../@share/lib/json/provinces.json';
@@ -28,36 +26,15 @@ import { Gender } from "../../../../@share/index.models"
 import {
   DefaultButton,
   PhoneTextField,
-  PasswordTextField, 
+  PasswordTextField,
   ControlledAutocomplete,
   ControlledDatePicker,
   ControlledSelectEnum,
   HelperText,
-  MuiColor,
+  DefaultCard,
 } from "../../../../@share/index.ui";
 import { useUser } from "@/@core/index.provider";
-
-type InputLabelProps = {
-  label: string,
-} & TypographyProps;
-
-const InputLabel = ({ label: label, paddingLeft, paddingBottom, fontWeight, fontSize, ...props } : InputLabelProps) => {
-  return (
-    <FormLabel>
-      <Typography fontSize={fontSize ? fontSize : FontSize.small + 1} fontWeight={fontWeight ? fontWeight : "bold"} paddingBottom={paddingBottom ? paddingBottom : 0.5} paddingLeft={paddingLeft ? paddingLeft : 0.4} {...props}>{label}</Typography>
-    </FormLabel>
-  )
-}
-
-
-
-const AccountType = (numberModules: number) : EnumStyle => {
-  if (200 <= numberModules) return { label: "Huyền thoại", color: MuiColor({transparency: 50, customColor: Colors.secondary}).custom }
-  if (100 <= numberModules) return { label: "Chiến binh", color:  MuiColor({transparency: 30}).warning }
-  if (50 <= numberModules) return { label: "Cao nhân", color: MuiColor({transparency: 30}).success }
-  if (20 <= numberModules) return { label: "Học giả", color: MuiColor({transparency: 30}).info }
-  return { label: "Sơ cấp", color: Colors.shadowDarken}
-}
+import { AccountType, InputLabel } from "./const";
 
 export default function ProfileGeneral() {
   
@@ -132,10 +109,8 @@ export default function ProfileGeneral() {
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Thông tin cá nhân</Typography>
           </Grid>
           <Grid item xs={12}>  
-            <Card 
-              id="profile-general-card"
-              sx={{
-                ...Styles.Card}}>
+            <DefaultCard
+              id="profile-general-card">
               <CardContent>
               <Stack direction="column" padding={3} rowGap={5} alignItems="flex-start">  
                 <Grid container direction={"row"} rowSpacing={2} columnSpacing={3} >
@@ -306,7 +281,7 @@ export default function ProfileGeneral() {
                 </Grid>
               </Stack>
             </CardContent>
-          </Card>
+          </DefaultCard>
           </Grid>
         </Grid>
       </Grid>
@@ -316,10 +291,8 @@ export default function ProfileGeneral() {
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Đổi mật khẩu</Typography>
           </Grid>
           <Grid item xs={6}>
-            <Card 
-              id="profile-password-card"
-              sx={{
-                ...Styles.Card}}>
+            <DefaultCard 
+              id="profile-password-card">
               <CardContent>
               <Stack direction="column" padding={3} rowGap={2} alignItems="flex-start">  
                 <Grid container direction={"column"} rowSpacing={2} columnSpacing={3} >
@@ -392,7 +365,7 @@ export default function ProfileGeneral() {
                 </Grid>
                 </Stack>
               </CardContent>
-            </Card>
+            </DefaultCard>
           </Grid>
         </Grid>
         
@@ -403,9 +376,7 @@ export default function ProfileGeneral() {
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Thông tin tài khoản</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Card sx={{
-              ...Styles.Card,
-              }}>
+            <DefaultCard>
               <CardContent>
                 <Stack direction="column" padding={3} rowGap={4} alignItems="flex-start">  
                     <Grid container rowSpacing={2} columnSpacing={3} >
@@ -440,7 +411,7 @@ export default function ProfileGeneral() {
                     </Grid>
                 </Stack>
               </CardContent>
-            </Card>
+            </DefaultCard>
           </Grid>
         </Grid>
       </Grid>

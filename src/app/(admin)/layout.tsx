@@ -1,10 +1,13 @@
+import AdminProviders from "./providers";
 
+interface Props {
+    children: React.ReactNode;
+}
 
-export default function DashboardLayout({ children : children } : { children: React.ReactNode }) {
+export default function DashboardLayout({ children } : Props) {
     return (
-        <div>
-            <h1>Dashboard Layout</h1>
+        <AdminProviders>
             {children}
-        </div>
+        </AdminProviders>
     )
 }

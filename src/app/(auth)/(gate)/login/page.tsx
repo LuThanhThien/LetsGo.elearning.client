@@ -17,6 +17,7 @@ import {
    PasswordTextField
 } from "../../../../@share/index.ui";
 import { HelperText } from "@/@share/index.ui";
+import { loginLogoStyle } from "../const";
 
 
 export default function LoginForm() {
@@ -29,17 +30,6 @@ export default function LoginForm() {
       },
    })
 
-   
-   const loginLogoStyle = {
-        padding: 5, 
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "50%",
-        border: "1px solid rgba(0,0,0,0.1)",
-        boxShadow: "0 0 5px rgba(0,0,0,0.1)",
-        cursor: "pointer",
-        paddingRight: 5,
-    }
 
    useEffect(() => {
       // https://react-hook-form.com/docs/useform/watch
@@ -79,7 +69,6 @@ export default function LoginForm() {
       }  
    }
 
-  
 
    return (
       <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingRight={3} padding={5}>

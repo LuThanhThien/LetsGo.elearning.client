@@ -1,4 +1,4 @@
-import { EnumStyle } from "@/@share/lib/style"
+import { EnumStyle } from "@/@share/lib/style";
 
 
 export enum DataStatus {
@@ -9,12 +9,4 @@ export enum DataStatus {
 export const DataStatusStyles : Record<DataStatus, EnumStyle> = {
     [DataStatus.ACTIVE]: { color: "success" },
     [DataStatus.INACTIVE]: { color: "error" },
-}
-
-
-export interface AuditData {
-    createdDatetime?: Date,
-    createdBy?: string | null,
-    lastModifiedDatetime?: Date | null,
-    lastModifiedBy?: string | null,
 }

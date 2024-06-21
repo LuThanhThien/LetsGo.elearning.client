@@ -1,39 +1,22 @@
 "use client";
 import Loading from "@/app/loading";
-import { EnumStyle, FontSize, Styles } from "../../../../@share/lib/style";
-import { Card, CardContent, FormLabel, Grid, Typography, TypographyProps } from "@mui/material";
-import { BadgeCheck, BadgeInfo, BadgeX, CreditCard, ReceiptText } from "lucide-react";
+import { FontSize, Styles } from "../../../../@share/lib/style";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
+import { CreditCard, ReceiptText } from "lucide-react";
 import {
   DefaultButton,
   DefaultTablePagination,
-  DefaultTableCell, 
+  DefaultTableCell,
   DefaultTableRow,
   DefaultChip,
-  MuiColor,
+  DefaultCard,
 } from "../../../../@share/index.ui";
 import { doFormatCurrency, doFormatDate, doFormatTime, getEnumValue } from "../../../../@share/lib/utils";
 import { PaymentMethod, PaymentStatus } from "../../../../@share/index.models";
 import { useEffect, useState } from "react";
 import { useUser } from "@/@core/index.provider";
+import { PaymentStatusStyles } from "./const";
 
-
-export const PaymentStatusStyles: Record<PaymentStatus, EnumStyle> = {
-  [PaymentStatus.PENDING]: { color: MuiColor({}).info, icon: <BadgeInfo size={17}/> },
-  [PaymentStatus.COMPLETED]: { color: MuiColor({}).success, icon: <BadgeCheck size={17}/> },
-  [PaymentStatus.FAILED]: { color: MuiColor({}).error, icon: <BadgeX size={17}/> },
-}
-
-type InputLabelProps = {
-  label: string,
-} & TypographyProps;
-
-const InputLabel = ({ label: label, paddingLeft, paddingBottom, fontWeight, fontSize, ...props } : InputLabelProps) => {
-  return (
-    <FormLabel>
-      <Typography fontSize={fontSize ? fontSize : FontSize.small} fontWeight={fontWeight ? fontWeight : "bold"} paddingBottom={paddingBottom ? paddingBottom : 0.5} paddingLeft={paddingLeft ? paddingLeft : 0.4} {...props}>{label}</Typography>
-    </FormLabel>
-  )
-}
 
 
 export default function BillingPage() {
@@ -83,11 +66,8 @@ export default function BillingPage() {
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Lịch sử thanh toán</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Card 
-              id="billing-profile-card"
-              sx={{
-                ...Styles.Card,
-                }}>
+            <DefaultCard 
+              id="billing-profile-card">
               <CardContent>
                 <Grid container direction={"row"} alignItems={"center"}>
                   <Grid item xs={6} paddingLeft={2}>
@@ -118,13 +98,12 @@ export default function BillingPage() {
                   </Grid>
                 </Grid>
               </CardContent>
-            </Card>
+            </DefaultCard>
           </Grid>
           <Grid item xs={12}>  
-            <Card 
+            <DefaultCard 
               id="billing-profile-card"
               sx={{
-                ...Styles.Card,
                 minHeight: "650px",
                 }}>
               <CardContent>
@@ -193,7 +172,7 @@ export default function BillingPage() {
                   </Grid>
                 </Grid>
             </CardContent>
-          </Card>
+          </DefaultCard>
           </Grid>
         </Grid>
       </Grid>

@@ -23,6 +23,14 @@ export const ContentContainer = styled(Stack)<StackProps>(({theme}) => {
     }
 })
 
+export const LayoutContainer = styled(Stack)<StackProps>(({theme}) => {
+    return {
+        width: "100%",
+        justifyItems: "center",
+        alignItems: "center",
+    }
+})
+
 export function MainContainer( props: MainContainerProps ) {
     return (
         <BackgroundContainer {...props.backgroundProps}>

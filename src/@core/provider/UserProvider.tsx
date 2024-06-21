@@ -88,13 +88,11 @@ export function UserProvider({ children }) {
 
   
   const handleGetPayments = async () => {
-    console.log("handleGetPayments");
     const response = await getPaymentList();
     if (response.error) {
       setPayments([]);
     }
     setPayments(response.data as PaymentModel[]);
-    console.log("payments", payments);
   }
 
   useEffect(() => {

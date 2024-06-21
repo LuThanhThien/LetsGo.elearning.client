@@ -1,16 +1,19 @@
 import { string } from "zod";
 import { API_PREFIX, HOST_URL, RequestMethod } from "./const";
+import { RequestOptions } from "./transactions";
 
 export class RestApi {
    public method: RequestMethod;
    public url: string;
+   public options?: RequestOptions;
 
-   constructor(method: RequestMethod, url: string) {
+   constructor(method: RequestMethod, url: string, options?: RequestOptions) {
       this.method = method;
       this.url = url;
+      this.options = options;
    }
 
-   public static create(method: RequestMethod, url: string) {
+   public static create(method: RequestMethod, url: string, options?: RequestOptions) {
       return new RestApi(method, url);
    }
 

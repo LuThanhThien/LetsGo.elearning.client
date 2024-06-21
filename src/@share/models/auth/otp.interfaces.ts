@@ -1,6 +1,6 @@
-import { DataStatus } from "../../lib/avatar";
+import { DataStatus } from "../global/audit-data.enums";
 
-export type OTPEntryModel = {
+export interface OTPEntryModel {
     id: number,
     username: string,
     otp: string,
