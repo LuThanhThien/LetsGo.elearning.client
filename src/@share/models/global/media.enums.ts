@@ -12,9 +12,3 @@ export const MediaTypeStyles : Record<MediaType, EnumStyle> = {
     [MediaType.FILE]: { color: "warning" },
 }
 
-export type MediaModel = {
-    id: number,
-    mediaName: string,
-    filePath: string,
-    mediaType: string,
-}

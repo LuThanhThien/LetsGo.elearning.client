@@ -2,7 +2,9 @@ export * from "./layout/MainContainer";
 
 export * from "./email/ResetPasswordOTPTemplate";
 
-export * from "./info/CourseCarousel";
+export * from "./study/CourseCarousel";
+export * from "./study/CourseCard";
+
 export * from "./info/PriceTable";
 
 export * from "./navbar/Topbar";

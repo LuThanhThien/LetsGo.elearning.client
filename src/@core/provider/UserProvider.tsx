@@ -4,7 +4,7 @@ import { UserUpdateDto, UserUpdateSchema, ChangePasswordDto, ChangePasswordSchem
 import { UseFormReturn, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getPaymentList } from "@/app/api/payment/actions";
-import { PaymentModel } from "../../@share/models/user/Payment";
+import { PaymentModel } from "../../@share/models/payment/payment.interfaces";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";
 

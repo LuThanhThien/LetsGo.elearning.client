@@ -3,7 +3,6 @@ import { FetchResponse, StandardError, StandardResponse } from "../transactions"
 import { AxiosError } from "axios";
 import { request } from "../axios";
 import { PaymentModel } from "@/@share/models/user/Payment";
-import { UserAPI } from "../user/actions";
 import { RestApi } from "../rest";
 import { JsonValue } from "@/@share/index.models";
 

@@ -38,7 +38,6 @@ export function SearchField({
 
     function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
         setValue(e.target.value);
-        if (e.target.value === "") onSearch(value);
         onChange ? onChange(e.target.value) : null;
         textFieldProps?.onChange ? textFieldProps.onChange(e) : null;
     }
@@ -47,6 +46,11 @@ export function SearchField({
         if (e.key === "Enter") {
             onSearch(value);
         }
+    }
+
+    function handleOnClear() {
+        setValue("");
+        onSearch("");
     }
 
     return (
@@ -64,7 +68,7 @@ export function SearchField({
                     aria-label="clear"
                     size={"small"}
                     color="error"
-                    onClick={() => {setValue("")}}
+                    onClick={() => handleOnClear()}
                     sx={{
                         visibility: value === "" ? "hidden" : "visible",
                     }}

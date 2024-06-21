@@ -113,12 +113,7 @@ export default function HomePage() {
               </Grid>
             </Box>
           </Grid>
-          <Grid item>
-            {/* <div id={`price-${priceTableId}`}>
-                <div className="subtitle home-title price-title">Bảng giá cho các bài giảng</div>
-              <PriceTable prices={Prices}/>
-            </div> */}
-          </Grid>
+                    {/* Prices */}
         </Grid>     
       </MainContainer>   
   );

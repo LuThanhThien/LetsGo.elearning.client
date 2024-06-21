@@ -1,8 +1,8 @@
 
     
 export interface AuditData {
-    createdDatetime?: Date,
+    createdDatetime?: string,
     createdBy?: string | null,
-    lastModifiedDatetime?: Date | null,
+    lastModifiedDatetime?: string | null,
     lastModifiedBy?: string | null,
 }

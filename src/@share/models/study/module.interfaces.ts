@@ -1,10 +1,10 @@
-import { AssetModel } from "./Asset";
+import { AssetModel } from "./asset.interfaces";
 
 
-export type ModuleModel = {
+export interface ModuleModel extends AssetModel {
     id: number,
     courseId: number,
     lessonsId: number[],
     price: number,
     enrollmentsId: number[],
-} & AssetModel;
+};

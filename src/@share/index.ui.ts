@@ -14,6 +14,7 @@ export * from "../@share/ui/feedback/DiaglogContent";
 export * from "../@share/ui/inputs/ControlledAutocomplete";
 export * from "../@share/ui/inputs/ControlledDatePicker";
 export * from "../@share/ui/inputs/ControlledSelect";
+export * from "../@share/ui/inputs/DefaultSelect";
 export * from "../@share/ui/inputs/DefaultButton";
 export * from "../@share/ui/inputs/PasswordTextField";
 export * from "../@share/ui/inputs/PhoneTextField";

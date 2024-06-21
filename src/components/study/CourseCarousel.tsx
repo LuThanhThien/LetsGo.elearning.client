@@ -14,7 +14,7 @@ export type CourseCarouselProps = {
 }
 
 
-export const CourseCard = ({ course } : { course: CourseInfo, }) => {
+export const CourseCarouselCard = ({ course } : { course: CourseInfo, }) => {
     const card = { 
         maxWidth: 320, 
         borderRadius: 2, 
@@ -24,7 +24,6 @@ export const CourseCard = ({ course } : { course: CourseInfo, }) => {
             transform: "scale3d(1.02, 1.02, 1)"
         }
     }
-
 
     const cardHeader = {
         display: "flex",
@@ -97,7 +96,6 @@ export const CourseCard = ({ course } : { course: CourseInfo, }) => {
                         </Typography>
                     </Grid>
                 </Grid>
-                
             </CardContent>
             </CardActionArea>
         </Card> 
@@ -126,7 +124,7 @@ export const CourseCarousel = (({ courses, cardPerSlide = 4, height = 460 } : Co
                         {courses.slice(start, end).map((course, cardIndex) => {
                             return (
                                 <Grid item key={`course-card-${cardIndex}`}>
-                                    <CourseCard course={course}/>
+                                    <CourseCarouselCard course={course}/>
                                 </Grid>
                             )
                         })}

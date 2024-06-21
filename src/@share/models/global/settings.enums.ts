@@ -1,4 +1,3 @@
-
 export enum SettingsValueType {
     STRING = "Văn bản",
     NUMBER = "Số",
@@ -7,13 +6,4 @@ export enum SettingsValueType {
     IMAGE = "Hình ảnh",
     VIDEO = "Video",
     FILE = "Tập tin",
-}
-
-
-
-export type SettingsModel = {
-    id: number,
-    name: string,
-    value: string,
-    type: SettingsValueType,
 }

@@ -28,7 +28,9 @@ export default function SavedCoursePage() {
               <CardContent>
                 <Grid container spacing={2} justifyContent={"center"} alignItems={"flex-start"}>
                   <Grid item xs={12}>
-                    <SearchField/>
+                    <SearchField
+                      onSearch={(value) => console.log(value)}
+                    />
                   </Grid>
                 </Grid>
             </CardContent>

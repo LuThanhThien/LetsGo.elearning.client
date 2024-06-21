@@ -1,16 +1,6 @@
 "use client";
-import {
-    Avatar,
-    Button,
-    Card,
-    CardContent,
-    Divider,
-    Grid,
-    Skeleton,
-    Stack,
-    Typography,
-} from "@mui/material";
-import { Heart, History, Layers, Settings, SquareUser } from "lucide-react";
+import { Avatar, Button, CardContent, Divider, Grid, Skeleton, Stack, Typography } from "@mui/material";
+import { History, Layers, Settings, SquareUser } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { MainContainer, MenuGroup, createMenu } from "../../../components/index.component";

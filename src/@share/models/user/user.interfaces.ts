@@ -1,6 +1,7 @@
-import { Role } from "../auth/Auth";
-import { DataStatus } from "../global/AuditData";
 import { EnumStyle } from "../../lib/style";
+import { Role } from "../auth/auth.enums";
+import { DataStatus } from "../global/audit-data.enums";
+import { Gender } from "./user.enums";
 
 export type UserModel = {
     id: number,
@@ -24,17 +25,5 @@ export type UserModel = {
     createdDatetime: Date,
     lastLoginDatetime: Date,
     lastChangePasswordDatetime: Date,
-}
-
-export enum Gender {
-    MALE = "Nam",
-    FEMALE = "Nữ",
-    OTHER = "Khác",
-}
-
-export const GenderStyles : Record<Gender, EnumStyle> = {
-    [Gender.FEMALE]: { color: "primary" },
-    [Gender.MALE]: { color: "info" },
-    [Gender.OTHER]: { color: "warning" },
 }
 

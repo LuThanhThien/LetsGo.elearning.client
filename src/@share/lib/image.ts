@@ -65,6 +65,17 @@ export { default as YOUTUBE } from "../../../public/img/(icons)/youtube.png";
 // (others)
 export { default as PAGE_NOT_FOUND } from "../../../public/img/(others)/page-not-found.png";
 
+// (study)
+export { default as COURSE_THUMBNAIL1} from "../../../public/img/(study)/course-thumbnail-1.jpg";
+export { default as COURSE_THUMBNAIL2} from "../../../public/img/(study)/course-thumbnail-2.jpg";
+export { default as COURSE_THUMBNAIL3} from "../../../public/img/(study)/course-thumbnail-3.jpg";
+export { default as COURSE_THUMBNAIL4} from "../../../public/img/(study)/course-thumbnail-4.jpg";
+export { default as COURSE_THUMBNAIL5} from "../../../public/img/(study)/course-thumbnail-5.jpg";
+export { default as COURSE_THUMBNAIL6} from "../../../public/img/(study)/course-thumbnail-6.png";
+export { default as COURSE_THUMBNAIL7} from "../../../public/img/(study)/course-thumbnail-7.png";
+export { default as COURSE_THUMBNAIL8} from "../../../public/img/(study)/course-thumbnail-8.png";
+
+
 // avatars
 export { default as AVATAR_BEAR } from "../../../public/img/avatars/avatar-bear.png";
 export { default as AVATAR_CAT } from "../../../public/img/avatars/avatar-cat.png";

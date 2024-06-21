@@ -1,24 +1,11 @@
 import { EnumStyle } from "../../lib/style";
-import { AuditData } from "../global/AuditData"
-
-export type PaymentModel = {
-    id: number,
-    username: string,
-    enrollmentId: number,
-    modulesId: number[],
-    amount: number,
-    paymentStatus: PaymentStatus,
-    paymentMethod: PaymentMethod,
-    paymentDatetime: Date,
-} & AuditData;
-
+import { AuditData } from "../global/audit-data.interfaces";
 
 export enum PaymentStatus {
     PENDING = "Đang xử lý",
     COMPLETED = "Hoàn tất",
     FAILED = "Không thành công",
 }
-
 
 
 export enum PaymentMethod {

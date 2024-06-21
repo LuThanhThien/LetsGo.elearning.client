@@ -129,9 +129,12 @@ export const CurrentCourses = [
 export const CourseTopics = [
   "Đề thi thử",
   "Đề thi chính thức",
+  "IELTS",
   "Từ vựng",
   "Ngữ pháp",
   "Đọc hiểu",
+  "Luyện nghe",
+  "Luyện viết",
 ]
 
 export const CourseSortBy = [

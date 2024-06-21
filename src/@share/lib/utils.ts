@@ -84,7 +84,7 @@ export const doFormatDatetime = (value: string | Date | undefined, options?: any
   return dateValue.toLocaleString('vi-VN', defaultOptions);
 }
 
-export const doFormatDate = (value: string | Date |undefined, options?: any) => {
+export const doFormatDate = (value: string | Date | null | undefined, options?: any) => {
   if (!value) return "";
   var defaultOptions : {} = options || { year: 'numeric', month: 'numeric', day: 'numeric' } 
   // Convert the date value to a string
