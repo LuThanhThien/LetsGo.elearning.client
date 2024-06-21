@@ -17,6 +17,7 @@ import {
    HelperText, 
    PasswordTextField 
 } from "../../../../@share/index.ui";
+import { loginLogoStyle } from "../const";
 
 
 
@@ -32,20 +33,8 @@ export default function RegisterForm() {
       },
    })
 
-
-    const loginLogoStyle = {
-        padding: 5, 
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "50%",
-        border: "1px solid rgba(0,0,0,0.1)",
-        boxShadow: "0 0 5px rgba(0,0,0,0.1)",
-        cursor: "pointer",
-        paddingRight: 5,
-    }
-
    
-   const handleRegister = async (data : RegisterDto) => {
+   async function handleRegister(data : RegisterDto) {
       try {
          data.avatar = randomChoice(...ListAvatars).src;
          let result = await register(data);
@@ -82,7 +71,6 @@ export default function RegisterForm() {
          registerForm.setError("root", {message: "Lỗi xác thực, vui lòng thử lại sau."})
       }  
    }
-
   
 
    return (

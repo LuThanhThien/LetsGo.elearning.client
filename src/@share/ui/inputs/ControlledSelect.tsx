@@ -1,8 +1,9 @@
 "use client"
 
 import { FontSize } from "../../lib/style";
-import { Autocomplete, AutocompleteProps, Box, MenuItem, Select, SelectProps, TextField, Typography } from "@mui/material";
+import { Autocomplete, AutocompleteProps, Box, InputLabel, MenuItem, NativeSelect, NativeSelectProps, Select, SelectProps, Stack, TextField, Typography, TypographyProps } from "@mui/material";
 import dayjs from "dayjs";
+import React from "react";
 import { Controller } from "react-hook-form";
 
 
@@ -11,30 +12,35 @@ type ControlledSelectProps = {
     control: any;
     defaultValue: any;
     name: string;
+    label?: string;
     noOptionsText?: string;
+    inlineLabel?: boolean;
+    labelProps?: TypographyProps;    
 } & SelectProps<any>;
 
 
+export const ControlledSelect = ({ options = [], noOptionsText, control, defaultValue, name, fullWidth, value, label, inlineLabel = false, onChange, children, labelProps, ...props } : ControlledSelectProps) => {
 
-export const ControlledSelect = ({ options = [], noOptionsText, control, defaultValue, name, fullWidth, value, onChange, children, ...props } : ControlledSelectProps) => {
-    
     return (
         <Controller
             render={({ field }) => (
-                <Select
-                    labelId={`${name}-select-label`}
-                    fullWidth={fullWidth ? fullWidth : true}
-                    id={`${name}-select-id`}
-                    value={(field) ? field.value : ""}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    {...props}
-                >
-                    {options.map((option: any) => (
-                        <MenuItem key={`${name}-${option}`} value={option}>
-                            <Typography fontSize={FontSize.semium}>{option}</Typography>
-                        </MenuItem>
-                    ))}
-                </Select>
+                <Stack direction={inlineLabel ? "row" : "column"} alignItems={inlineLabel ? "center" : "flex-start"} spacing={1}>
+                    <Typography paddingLeft={1} color="#333333" {...labelProps}>{label}</Typography>
+                    <Select
+                        labelId={`${name}-select-label`}
+                        fullWidth={fullWidth ? fullWidth : true}
+                        id={`${name}-select-id`}
+                        value={(field) ? field.value : ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        {...props}
+                    >
+                        {options.map((option: any) => (
+                            <MenuItem key={`${name}-${option}`} value={option}>
+                                <Typography fontSize={FontSize.semium}>{option}</Typography>
+                            </MenuItem>
+                        ))}
+                    </Select>
+                </Stack>
             )}
             defaultValue={defaultValue}
             name={name}

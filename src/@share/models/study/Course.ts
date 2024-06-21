@@ -3,11 +3,13 @@ import { Colors, EnumStyle } from "../../lib/style";
 import { AuditData } from "../global/AuditData";
 import { NameStack } from "./Asset";
 
-export type CourseModel = {
+export interface CourseModel {
     id: number,
     modulesId: number[],
     price: number,
     nameStack: NameStack,
+    description: string,
+    name: string,
 }
 
 
@@ -57,6 +59,7 @@ export class CourseInfo {
     level: string;
     numOfLessons: number;
     tag: CourseTag;
+
     constructor({title, description, imgSrc, href, level, numOfLessons, tag}: CourseInfoType) {
        this.title = title;
        this.description = description;

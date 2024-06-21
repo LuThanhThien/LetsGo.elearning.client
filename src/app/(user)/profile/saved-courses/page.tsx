@@ -1,6 +1,6 @@
 "use client";;
 import { useUser } from "@/@core/index.provider";
-import { CircularLoading } from "../../../../@share/index.ui";
+import { CircularLoading, DefaultCard, SearchField } from "../../../../@share/index.ui";
 import { FontSize, Styles } from "../../../../@share/lib/style";
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 
@@ -10,7 +10,6 @@ export default function SavedCoursePage() {
   const { 
     contextStatus, session
   } = useUser();
-  
 
   if (contextStatus === "loading") return <CircularLoading/>;
     
@@ -24,23 +23,16 @@ export default function SavedCoursePage() {
             <Typography fontSize={FontSize.super} fontWeight={"bold"} paddingLeft={1}>Khoá học đã lưu</Typography>
           </Grid>
           <Grid item xs={12}>  
-            <Card 
-              id="billing-profile-card"
-              sx={{
-                ...Styles.Card,
-                minHeight: "650px",
-                }}>
+            <DefaultCard 
+              id="billing-profile-card">
               <CardContent>
                 <Grid container spacing={2} justifyContent={"center"} alignItems={"flex-start"}>
                   <Grid item xs={12}>
-                    Tìm kiếm
-                  </Grid>
-                  <Grid item xs={12}>
-                    Tìm kiếm
+                    <SearchField/>
                   </Grid>
                 </Grid>
             </CardContent>
-          </Card>
+          </DefaultCard>
           </Grid>
         </Grid>
       </Grid>

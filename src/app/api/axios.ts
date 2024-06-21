@@ -8,7 +8,7 @@ export default axios.create({
    baseURL: `${HOST_URL}`,
 })
 
-export async function request({method, url, data, headers} : RequestData) : Promise<AxiosResponse | ResponseError> {
+export async function request({method, url, data, headers, options} : RequestData) : Promise<AxiosResponse | ResponseError> {
    let requestMsg = `[Request on ${method} ${url}] `;
    // let token = await AuthenReq.getAccessToken();
    const session = await getSession();
@@ -19,13 +19,14 @@ export async function request({method, url, data, headers} : RequestData) : Prom
       }
    } else if (!headers) { headers = DEFAULT_HEADERS; }
    const fullUrl = RestApi.createUrl(url, data);
-   console.log(requestMsg + "Request data: " + JSON.stringify(data));
-   console.log(requestMsg + "Headers: " + JSON.stringify(headers));
+   // console.log(requestMsg + "Request data: " + JSON.stringify(data));
+   // console.log(requestMsg + "Headers: " + JSON.stringify(headers));
 
    return axios({
       method: method,
       headers: headers,
       url: fullUrl,
       data: data,
+      ...options
    })
 }

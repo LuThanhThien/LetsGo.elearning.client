@@ -1,12 +1,12 @@
-"use client";
+"use client";;
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { forgotPassword } from "@/app/api/auth/actions";
-import { RegisterSchema, ForgotPasswordDto, ForgorPasswordSchema } from "../../../../@share/schema/Auth";
-import { useRouter } from "next/navigation";
-import { Grid, Link, TextField, Typography } from "@mui/material";
+import { ForgotPasswordDto, ForgorPasswordSchema } from "../../../../@share/schema/Auth";
+import { Grid, Link, Stack, TextField, Typography } from "@mui/material";
 import { DefaultButton, HelperText } from "../../../../@share/index.ui";
 import { useState } from "react";
+import { Colors } from "@/@share/lib/style";
 
 
 
@@ -19,9 +19,8 @@ export default function ResetPasswordPage() {
       }
    })
 
-
    
-   const handleSendOtp = async (data : ForgotPasswordDto) => {
+   async function handleSendOtp (data : ForgotPasswordDto) {
       try {
          console.log("Sending OTP... ", data)
          let result = await forgotPassword(data.username);
@@ -43,6 +42,22 @@ export default function ResetPasswordPage() {
       }  
    }
   
+   if (isSent) {
+      return (
+      <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingRight={3} padding={5}>
+         <Grid item>
+            <Typography variant="h5" fontWeight={"bold"}>Quên mật khẩu</Typography>
+         </Grid>
+         <Grid height={10}/>
+         <Grid item>
+            <Typography variant="subtitle1">
+               Vui lòng kiểm tra email mới nhất và làm theo hướng dẫn!
+            </Typography>
+         </Grid>
+      </Grid>
+      )
+   }
+   
 
    return (
       <Grid container direction={"column"} spacing={2} justifyContent={"center"} alignItems={"center"} paddingRight={3} padding={5}>
@@ -74,7 +89,7 @@ export default function ResetPasswordPage() {
             <DefaultButton 
                processing={forgotPasswordForm.formState.isSubmitting}   
                onClick={forgotPasswordForm.handleSubmit(handleSendOtp)} sx={{ width: 250 }}>
-               Gửi OTP
+               Đặt lại mật khẩu
             </DefaultButton>
          </Grid>
          <Grid height={10}/>
@@ -84,7 +99,6 @@ export default function ResetPasswordPage() {
             </Typography>
          </Grid>
       </Grid>
-      
     )
  }
 

@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import { Card } from "@mui/material";
 import { randomChoice } from "../../../@share/lib/utils";
 import React from "react";
+import { DefaultCard } from "@/@share/index.ui";
 
 const AuthLayout = ({ children: children }: { children: React.ReactNode }) => { 
     const choiceImages = [
@@ -17,7 +18,7 @@ const AuthLayout = ({ children: children }: { children: React.ReactNode }) => {
 
  
     return(
-        <Card>
+        <DefaultCard>
             {/* <Box
                 component={"img"}
                 sx={{
@@ -50,7 +51,7 @@ const AuthLayout = ({ children: children }: { children: React.ReactNode }) => {
                     {children}
                 </Grid>
             </Grid>
-        </Card>
+        </DefaultCard>
    )
 }
 

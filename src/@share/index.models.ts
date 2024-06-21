@@ -1,11 +1,13 @@
-export * from "./models/auth/OTP";
-export * from "./models/auth/Auth";
+export * from "./models/auth/otp.interfaces";
+export * from "./models/auth/auth.enums";
+export * from "./models/auth/auth.interfaces";
 
-export * from "./models/global/AuditData";
+export * from "./models/global/audit-data.interfaces";
+export * from "./models/global/audit-data.enums";
 export * from "./models/global/PriceInfo";
 export * from "./models/global/Setting";
 export * from "./models/global/Media";
-export * from "./models/global/JsonValue";
+export * from "./models/global/json-value.interfaces";
 
 export * from "./models/study/Asset";
 export * from "./models/study/Choice";

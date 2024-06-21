@@ -1,11 +1,17 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse, HttpStatusCode } from "axios"
 
+export interface RequestOptions {
+   timeout?: number,
+}
+
 export interface RequestData extends AxiosRequestConfig {
    method: string,
    url: string,
    headers?: any,
    data: any,
+   options?: RequestOptions,
 }
+
  
 export interface ResponseError extends AxiosResponse {
    data: {
@@ -47,7 +53,7 @@ export class StandardResponse<T> implements StandardResponseType<T> {
       return new StandardResponse<T>(
          response.status,
          response.headers.date as string,
-         response.data || response.json() as T,
+         response.data as T,
          response.headers["app-version"] as string,
          response.config.url,
       );

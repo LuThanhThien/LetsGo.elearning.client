@@ -124,3 +124,25 @@ export const CurrentCourses = [
     tag: CourseTag.HOT,
   }),
 ]
+
+
+export const CourseTopics = [
+  "Đề thi thử",
+  "Đề thi chính thức",
+  "Từ vựng",
+  "Ngữ pháp",
+  "Đọc hiểu",
+]
+
+export const CourseSortBy = [
+  "Mới nhất",
+  "Số học viên",
+  "Số lượt xem",
+]
+
+export const CourseFilters = {
+  "Chủ đề": CourseTopics,
+  "Cấp độ": Object.values(CourseLevel),
+  "Nhãn": Object.values(CourseTag),
+}
+

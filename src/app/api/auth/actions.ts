@@ -18,7 +18,7 @@ export const AuthAPI = {
    REGISTER: RestApi.create(RequestMethod.POST, '/auth/register'),
    LOGOUT: RestApi.create(RequestMethod.POST, '/auth/logout'),
    GET_TOTP: RestApi.create(RequestMethod.GET, '/auth/totp'),
-   FORGOT_PASSWORD: RestApi.create(RequestMethod.POST, '/auth/forgot-password?:username'),
+   FORGOT_PASSWORD: RestApi.create(RequestMethod.POST, '/auth/forgot-password?:username', { timeout: 1000 }),
    RESET_PASSWORD: RestApi.create(RequestMethod.PATCH, '/auth/reset-password'),
    GET_OTP_FROM_CODE: RestApi.create(RequestMethod.GET, '/auth/otp/:otpCode'),
 }
@@ -56,7 +56,8 @@ export async function login(data : LoginDto) : Promise<FetchResponse<AuthRespons
          method: AuthAPI.LOGIN.method,
          headers: DEFAULT_HEADERS,
          url: AuthAPI.LOGIN.url,
-         data: JSON.stringify(data)
+         data: JSON.stringify(data),
+         options: AuthAPI.LOGIN.options
       });
       return StandardResponse.standlize(res).log("Login response");
    } catch (err) {
@@ -113,7 +114,8 @@ export async function getUserByUsername(username: string) : Promise<FetchRespons
       let res = await request({
          method: AuthAPI.AUTH.method,
          url: AuthAPI.AUTH.url,
-         data: {username: username}
+         data: {username: username},
+         options: AuthAPI.AUTH.options
       })
       return StandardResponse.standlize(res).log("Get user by username response");
    } catch (err) {
@@ -140,7 +142,8 @@ export async function getTOTP() : Promise<FetchResponse<OTPEntryModel>> {
       let res = await request({
          method: AuthAPI.GET_TOTP.method,
          url: AuthAPI.GET_TOTP.url,
-         data: {}
+         data: {},
+         options: AuthAPI.GET_TOTP.options
       })
       return StandardResponse.standlize(res).log("Get TOTP response");
    } catch (err) {
@@ -153,7 +156,8 @@ export async function forgotPassword(username: string) : Promise<FetchResponse<O
       let res = await request({
          method: AuthAPI.FORGOT_PASSWORD.method,
          url: AuthAPI.FORGOT_PASSWORD.url,
-         data: {username: username}
+         data: {username: username},
+         options: AuthAPI.FORGOT_PASSWORD.options
       })
       return StandardResponse.standlize(res).log("Forgot password response");
    } catch (err) {
